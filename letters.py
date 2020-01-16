@@ -10,7 +10,8 @@ tripthongs = {'oei', 'eau', 'eeu', 'ooi', 'aai', 'oeu'}
 start_dipthongs = {'au', 'aa', 'ee', 'oo', 'uu', }
 # can only be first group of vowels, e.g. bloei-en, niveau-ijs
 end_tripthongs = {'oei', 'eau', 'eeu', 'ooi', 'aai'}
-start_tripthongs = {'oeu'}  # can only be last group of vowels e.g. oeuvre
+# can only be last group of vowels e.g. oeuvre
+start_tripthongs = {'oeu'}
 break_symbol = '-'
 consonant_combinations = {'',
                           'b', 'bl', 'br',
