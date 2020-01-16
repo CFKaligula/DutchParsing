@@ -58,12 +58,12 @@ def get_input():
 
 
 def split_word(word):
-    word = parse_syllable_in_groups(word, len(word)-1)
+    word = split_syllable_dictionary(word, len(word)-1)
     print(f'finished working: {word}')
     return word
+    
 
-
-def parse_syllable_in_groups(word, start):
+def split_syllable_dictionary(word, start):
     start_cons_group = ''
     vowel_group = ''
     end_cons_group = ''
@@ -106,7 +106,7 @@ def parse_syllable_in_groups(word, start):
         word = rest_word + syllable + finished_part
     else:
         word = rest_word + '·' + syllable + finished_part
-    return parse_syllable_in_groups(word, index)
+    return split_syllable_dictionary(word, index)
 
 
 def check_start_cons(start_cons_group, rest_word, index):
