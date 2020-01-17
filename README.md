@@ -9,3 +9,9 @@
  The parser currently parses from right to left, I have no idea if this is better than left to right but it works pretty well for now.
 
  Eventually there will be need for a word list of some sort, as there is no way to know if the syllable 'be' should be pronounced as 'bay' for 'bezem' or  'buh' for 'bezet.
+
+## How to Use
+You can input a word to the console script and it will split it up in syllables for you:
+``` bash
+C:\...\DutchParsing>python Console.py voorbeeld
+```
