@@ -31,6 +31,9 @@ def test_parser():
             Word('lachen').get_split_word() == 'lach-en' and \
             Word('autootje').get_split_word() == 'au-too-tje' and \
             Word('herfstjuk').get_split_word() == 'herfst-juk' and \
+            Word('beïnvloeden').get_split_word() == 'be-in-vloe-den' and \
+            Word('blok-étagere').get_split_word() == 'blok-e-ta-ge-re' and \
+            Word('blaséeend').get_split_word() == 'bla-se-eend' and \
             Word('hoofdstad').get_split_word() == 'hoofd-stad':
         print('*********All Tests Successful************')
 

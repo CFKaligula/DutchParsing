@@ -26,7 +26,7 @@ class Word:
                 result += letters.BREAK_SYMBOL
         return result
 
-    def get_syllables(self, rest_word, start, syllable_list):
+    def get_syllables(self, word, start, syllable_list):
         syl = Syllable(prev_syl=syllable_list[-1])
 
         word = self.text
@@ -36,9 +36,12 @@ class Word:
             if index >= self.length:
                 break
             print(f'index letter: {word[index]}, {index}')
-            if word[index] in letters.CONSONANTS:
+            if word[index] == '-':
+                index += 1
+                break
+            elif word[index] in letters.CONSONANTS:
                 syl.add_cons(word[index])
-            elif word[index] in letters.VOWELS:
+            elif word[index] in (letters.VOWELS):
                 if len(syl.end_cons) > 0:
                     index = syl.fix_end_cons(index)
                     break
@@ -47,13 +50,19 @@ class Word:
                     break_bool = syl.add_vowel(word[index], next_let)
                     if break_bool:
                         break
+            elif word[index] in letters.VOWELS_WITH_ACCENTS:
+                if len(syl.vowels) == 0:
+                    syl.vowels += word[index]
+                else:
+                    index = syl.fix_end_cons(index)
+                    break
             else:
                 raise Exception(
                     f'Words should only contain letters, {word[index]} is not a letter.')
-
+        syl.remove_accents()
         syllable_list.append(syl)
         syl.display_cons_and_vowels()
         syl.check_start_cons()
         syl.update_text()
 
-        return self.get_syllables(rest_word, index, syllable_list)
+        return self.get_syllables(word, index, syllable_list)

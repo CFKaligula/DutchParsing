@@ -3,7 +3,7 @@ import letters
 
 class Syllable:
     def __init__(self, text='', prev_syl=''):
-        self.text = text
+        self.text = text.lower()
         self.length = len(self.text)
         self.start_cons = ''
         self.vowels = ''
@@ -13,8 +13,6 @@ class Syllable:
 
     def find_cons_and_vowels(self):
         # finds the consonant and vowel groups in the syllable
-        if self.text == '':
-            return '', '', ''
         found_vowel = False
         for i in range(0, self.length):
             if self.text[i] in letters.CONSONANTS:
@@ -44,13 +42,12 @@ class Syllable:
             self.end_cons = ''
             index -= 1
         else:
-
             if self.end_cons == 'tj':
                 # for diminutives the 'tj' will be the start of the next one e.g. au-too-tje
                 self.end_cons = ''
                 index -= 2
-            elif self.end_cons not in ['ch', 'kw', 'th']:
-                # if there are multiple consonants (that are not) we give all but the first to the next syllable
+            elif self.end_cons not in ['', 'ch', 'kw', 'th', ]:
+                # if there are multiple consonants (that are not one of the fixed ones) we give all but the first to the next syllable
                 index -= len(self.end_cons) - 1
                 self.end_cons = self.end_cons[0]
             # if we already have end cons, then this vowel is part of the next syllable
@@ -74,6 +71,7 @@ class Syllable:
         break_bool = False
         if len(self.vowels) == 0:
             self.vowels += vowel
+
         elif (self.vowels + vowel) in letters.TRIPTHONGS:
             # find a tripthong
             self.vowels += vowel
@@ -85,8 +83,14 @@ class Syllable:
             self.vowels += vowel
         else:
             # no dipthong or tripthong, so end of syllable
+
             break_bool = True
         return break_bool
+
+    def remove_accents(self):
+        for i in range(0, len(self.vowels)):
+            if self.vowels[i] in letters.VOWELS_WITH_ACCENTS:
+                self.vowels = letters.remove_accent_in_string(self.vowels, i)
 
     def display_syllable(self):
         print(self.text)
