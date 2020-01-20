@@ -15,6 +15,7 @@ def get_input():
         for word in args.input:
             hallo = Word(word)
             hallo.display_syllable_list()
+            hallo.speak_syllables()
             print(hallo.get_split_word())
 
 

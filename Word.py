@@ -1,8 +1,10 @@
-import letters
+import Letters
 from Syllable import Syllable
 '''
 TO BE IMPLEMENTED:
 * Sound
+* nieuw, duw, hoi, groei, leeuw (just ignore the w)
+* oer and uil, vowel pronounc. should be oe-uhr, ui-uhr where uh== schwa
 '''
 
 
@@ -23,7 +25,7 @@ class Word:
         for i in range(0, len(self.syllables)):
             result += self.syllables[i].text
             if i != len(self.syllables)-1:
-                result += letters.BREAK_SYMBOL
+                result += Letters.BREAK_SYMBOL
         return result
 
     def get_syllables(self, word, start, syllable_list):
@@ -39,9 +41,9 @@ class Word:
             if word[index] == '-':
                 index += 1
                 break
-            elif word[index] in letters.CONSONANTS:
+            elif word[index] in Letters.CONSONANTS:
                 syl.add_cons(word[index])
-            elif word[index] in (letters.VOWELS):
+            elif word[index] in (Letters.VOWELS):
                 if len(syl.end_cons) > 0:
                     index = syl.fix_end_cons(index)
                     break
@@ -50,7 +52,7 @@ class Word:
                     break_bool = syl.add_vowel(word[index], next_let)
                     if break_bool:
                         break
-            elif word[index] in letters.VOWELS_WITH_ACCENTS:
+            elif word[index] in Letters.VOWELS_WITH_ACCENTS:
                 if len(syl.vowels) == 0:
                     syl.vowels += word[index]
                 else:
@@ -58,7 +60,7 @@ class Word:
                     break
             else:
                 raise Exception(
-                    f'Words should only contain letters, {word[index]} is not a letter.')
+                    f'Words should only contain Letters, {word[index]} is not a letter.')
         syl.remove_accents()
         syllable_list.append(syl)
         syl.display_cons_and_vowels()
@@ -66,3 +68,7 @@ class Word:
         syl.update_text()
 
         return self.get_syllables(word, index, syllable_list)
+
+    def speak_syllables(self):
+        for syllable in self.syllables:
+            syllable.speak_syllable()

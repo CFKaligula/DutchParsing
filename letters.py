@@ -6,7 +6,7 @@ VOWELS = {'a', 'e', 'i', 'o', 'u'}
 VOWELS_WITH_ACCENTS = {'á', 'ä', 'é', 'ë', 'í', 'ï', 'ó',  "ö", 'ú', 'ü'}
 DIPTHONGS = {'au', 'ou', 'ei', 'ij', 'oe',
              'ui',  'aa', 'ee', 'ie', 'oo', 'uu', 'oi'}
-TRIPTHONGS = {'oei', 'eau', 'eeu', 'ooi', 'aai', 'oeu'}
+TRIPTHONGS = {'oei', 'eau', 'eeu', 'ooi', 'aai', 'oeu', 'ieu'}
 BREAK_SYMBOL = '-'
 VALID_CONSONANT_COMBINATIONS = {'',
                                 'bl', 'br',
