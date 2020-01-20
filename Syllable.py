@@ -112,15 +112,16 @@ class Syllable:
                 print('skipping first cons as it is the same as previous ending cons')
             else:
                 playsound(
-                    f'soundFiles/consonants/processed/{self.start_cons[i]}.mp3')
-        time.sleep(0.08)
+                    f'soundFiles/consonants/processed/d.mp3')
+        time.sleep(0.2)
         if len(self.vowels) > 0:
             self.speak_vowel()
 
         for i in range(0, len(self.end_cons)):
+            print('play end')
             playsound(
                 f'soundFiles/consonants/processed/{self.end_cons[i]}.mp3')
-            # time.sleep(0.1)
+        time.sleep(0.1)
 
     def speak_vowel(self):
         file_name = None
@@ -147,6 +148,6 @@ class Syllable:
         if file_name == None:
             file_name = self.vowels
         vowel_file_path = f'soundFiles/vowels/processed/{file_name}.mp3'
-        print(f'playing {vowel_file_path} ')
+        print(f'playing {vowel_file_path} ', )
         playsound(vowel_file_path)
-        # time.sleep(0.001)
+        time.sleep(0.1)
