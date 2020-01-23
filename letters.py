@@ -33,13 +33,6 @@ VALID_CONSONANT_COMBINATIONS = {'',
                                 }
 
 
-def remove_accent_in_string(string, accent_position):
-    new_word = string[:accent_position] + \
-        remove_accent(string[accent_position]) + string[accent_position+1:]
-    print(f'changed {string} to { new_word}')
-    return new_word
-
-
 def remove_accent(letter):
     if letter in {'á', 'ä'}:
         return 'a'

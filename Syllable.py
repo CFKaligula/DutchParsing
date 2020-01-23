@@ -4,6 +4,7 @@ from playsound import playsound
 
 
 class Syllable:
+
     def __init__(self, text='', prev_syl=''):
         self.text = text.lower()
         self.length = len(self.text)
@@ -30,8 +31,7 @@ class Syllable:
         if len(self.prev_syl.text) > 0 and not (self.start_cons + self.vowels == 'tje'):
             # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
             while self.start_cons not in (Letters.VALID_CONSONANT_COMBINATIONS | Letters.CONSONANTS):
-                print(
-                    f'start cons {self.start_cons} is not a valid consonant combination')
+                print(f'start cons {self.start_cons} is not a valid consonant combination')
                 self.prev_syl.end_cons += self.start_cons[0]
                 self.start_cons = self.start_cons[1:]
             self.update_text()
@@ -90,9 +90,7 @@ class Syllable:
         return break_bool
 
     def remove_accents(self):
-        for i in range(0, len(self.vowels)):
-            if self.vowels[i] in Letters.VOWELS_WITH_ACCENTS:
-                self.vowels = Letters.remove_accent_in_string(self.vowels, i)
+        self.vowels = ''.join(list(map(Letters.remove_accent, self.vowels)))
 
     def display_syllable(self):
         print(self.text)
@@ -113,7 +111,7 @@ class Syllable:
             else:
                 playsound(
                     f'soundFiles/consonants/processed/d.mp3')
-        time.sleep(0.2)
+        # time.sleep(0.08)
         if len(self.vowels) > 0:
             self.speak_vowel()
 
@@ -150,4 +148,4 @@ class Syllable:
         vowel_file_path = f'soundFiles/vowels/processed/{file_name}.mp3'
         print(f'playing {vowel_file_path} ', )
         playsound(vowel_file_path)
-        time.sleep(0.1)
+        # time.sleep(0.1)

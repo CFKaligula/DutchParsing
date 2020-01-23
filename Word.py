@@ -4,7 +4,10 @@ from Syllable import Syllable
 TO BE IMPLEMENTED:
 * Sound
 * nieuw, duw, hoi, groei, leeuw (just ignore the w)
-* oer and uil, vowel pronounc. should be oe-uhr, ui-uhr where uh== schwa
+* oer and uil, vowel pronunciation should be oe-uhr, ui-uhr where uh== schwa
+* qu pronounced as kw
+* should probably make a pronunciation variable for syllables
+* use 'for letter in word' instead of 'for i in range(0,len(word))
 '''
 
 
@@ -61,7 +64,9 @@ class Word:
             else:
                 raise Exception(
                     f'Words should only contain Letters, {word[index]} is not a letter.')
-        syl.remove_accents()
+        if syl.vowels in Letters.VOWELS_WITH_ACCENTS:
+            print(f' The syllable contains an accent, {syl.vowels}.')
+            syl.remove_accents()
         syllable_list.append(syl)
         syl.display_cons_and_vowels()
         syl.check_start_cons()
