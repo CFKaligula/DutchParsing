@@ -74,6 +74,6 @@ class Word:
 
         return self.get_syllables(word, index, syllable_list)
 
-    def speak_syllables(self):
+    def pronounce_syllables(self):
         for syllable in self.syllables:
-            syllable.speak_syllable()
+            syllable.pronounce_syllable()

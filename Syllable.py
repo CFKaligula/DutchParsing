@@ -101,8 +101,8 @@ class Syllable:
         print(f'vowels: {self.vowels}')
         print(f'end_cons: {self.end_cons}')
 
-    def speak_syllable(self):
-        print(f'speaking syllable {self.text}')
+    def pronounce_syllable(self):
+        print(f'pronounceing syllable {self.text}')
         # playsound('soundFiles/consonants/processed/d1.mp3')
 
         for i in range(0, len(self.start_cons)):
@@ -113,7 +113,7 @@ class Syllable:
                     f'soundFiles/consonants/processed/d.mp3')
         # time.sleep(0.08)
         if len(self.vowels) > 0:
-            self.speak_vowel()
+            self.pronounce_vowel()
 
         for i in range(0, len(self.end_cons)):
             print('play end')
@@ -121,7 +121,7 @@ class Syllable:
                 f'soundFiles/consonants/processed/{self.end_cons[i]}.mp3')
         time.sleep(0.1)
 
-    def speak_vowel(self):
+    def pronounce_vowel(self):
         file_name = None
         if len(self.end_cons) == 0:
             if self.vowels in {'a', 'e', 'o', 'u'}:

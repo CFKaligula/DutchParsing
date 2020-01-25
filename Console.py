@@ -1,22 +1,9 @@
-import argparse
+from argparse import ArgumentParser
 from Word import Word
 
-
-def get_input():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('input', type=str,
-                        help='input for the parser', nargs='+')
-    args = parser.parse_args()
-    print(args.input)
-    processed_input = []
-    if args.input == ['test']:
-        test_parser()
-    else:
-        for word in args.input:
-            hallo = Word(word)
-            hallo.display_syllable_list()
-            hallo.speak_syllables()
-            print(hallo.get_split_word())
+_COMMAND_SPLIT = 'split'
+_COMMAND_PRONOUNCE = 'pronounce'
+_COMMAND_TEST = 'test'
 
 
 def test_parser():
@@ -39,8 +26,59 @@ def test_parser():
         print('*********All Tests Successful************')
 
 
+def _add_parser_category_split(subparsers):
+    parser = subparsers.add_parser(_COMMAND_SPLIT, help='splits the input word in syllables.')
+    parser.set_defaults(command=_COMMAND_SPLIT)
+
+    parser.add_argument(
+        'input',
+        type=str,
+        help='input for the parser')
+
+
+def _add_parser_category_pronounce(subparsers):
+    parser = subparsers.add_parser(_COMMAND_PRONOUNCE, help='pronounces the input word.')
+    parser.set_defaults(command=_COMMAND_PRONOUNCE)
+
+    parser.add_argument(
+        'input',
+        type=str,
+        help='input for the parser')
+
+
+def _add_parser_category_test(subparsers):
+    parser = subparsers.add_parser(_COMMAND_TEST, help='runs all the tests on the parser.')
+    parser.set_defaults(command=_COMMAND_TEST)
+
+
+def _parse_arguments():
+    parser = ArgumentParser(description='Console interface for the parser.')
+    parser.set_defaults(command=None)
+
+    subparsers = parser.add_subparsers(help='Category')
+    _add_parser_category_split(subparsers)
+    _add_parser_category_pronounce(subparsers)
+    _add_parser_category_test(subparsers)
+    args = parser.parse_args()
+    if args.command is None:
+        parser.print_help()
+
+    elif args.command == _COMMAND_TEST:
+        test_parser()
+    elif args.command == _COMMAND_SPLIT:
+        word = Word(args.input)
+        word.display_syllable_list()
+        print(word.get_split_word())
+    elif args.command == _COMMAND_PRONOUNCE:
+        word = Word(args.input)
+        word.pronounce_syllables()
+        print(word.get_split_word())
+
+    return (args.command, args)
+
+
 def main():
-    get_input()
+    (command, args) = _parse_arguments()
 
 
 main()
