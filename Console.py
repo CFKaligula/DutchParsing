@@ -22,6 +22,11 @@ def test_parser():
             Word('beïnvloeden').get_split_word() == 'be-in-vloe-den' and \
             Word('blok-étagere').get_split_word() == 'blok-e-ta-ge-re' and \
             Word('blaséeend').get_split_word() == 'bla-se-eend' and \
+            Word('baby').get_split_word() == 'ba-by' and \
+            Word('ijsyoghurt').get_split_word() == 'ijs-yog-hurt' and \
+            Word('sexy').get_split_word() == 'sex-y' and \
+            Word('yoghurt').get_split_word() == 'yog-hurt' and \
+            Word('quasi').get_split_word() == 'quasi' and \
             Word('hoofdstad').get_split_word() == 'hoofd-stad':
         print('*********All Tests Successful************')
 
@@ -71,7 +76,7 @@ def _parse_arguments():
         print(word.get_split_word())
     elif args.command == _COMMAND_PRONOUNCE:
         word = Word(args.input)
-        word.pronounce_syllables()
+        word.pronounce_word()
         print(word.get_split_word())
 
     return (args.command, args)
