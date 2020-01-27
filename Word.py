@@ -84,7 +84,7 @@ class Word:
                     index = syl.fix_end_cons(index)
                     break
             else:
-                raise Exception(f'"{word[index]}" is not a letter.')
+                print(f'"{word[index]}" is not a letter.')
         if syl.vowels in Letters.VOWELS_WITH_ACCENTS:
             print(f' The syllable contains an accent, {syl.vowels}.')
             syl.remove_accents()

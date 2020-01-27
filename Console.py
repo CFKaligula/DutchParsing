@@ -1,9 +1,11 @@
 from argparse import ArgumentParser
+
 from Word import Word
 
 _COMMAND_SPLIT = 'split'
 _COMMAND_PRONOUNCE = 'pronounce'
 _COMMAND_TEST = 'test'
+_COMMAND_ANALYZE = 'analyze'
 
 
 def test_parser():
@@ -31,6 +33,24 @@ def test_parser():
         print('*********All Tests Successful************')
 
 
+def analyze(input_words):
+    analyze_dict = {}
+    for input_word in input_words:
+        word = Word(input_word)
+        for syllable in word.syllables:
+            if syllable.text not in analyze_dict:
+                analyze_dict[syllable.text] = 1
+            else:
+                analyze_dict[syllable.text] += 1
+        sorted_dict = {k: v for k, v in sorted(
+            analyze_dict.items(), key=lambda item: item[1], reverse=True)}
+        print(
+            f'there were a total of {len(analyze_dict)} unique syllables in the text, of {len(input_words)} words.')
+
+        top5 = {key: value for key, value in list(sorted_dict.items())[0:5]}
+        print(f'the most common syllables were {top5}')
+
+
 def _add_parser_category_split(subparsers):
     parser = subparsers.add_parser(_COMMAND_SPLIT, help='splits the input word in syllables.')
     parser.set_defaults(command=_COMMAND_SPLIT)
@@ -51,6 +71,16 @@ def _add_parser_category_pronounce(subparsers):
         help='input for the parser')
 
 
+def _add_parser_category_analyze(subparsers):
+    parser = subparsers.add_parser(_COMMAND_ANALYZE, help='pronounces the input word.')
+    parser.set_defaults(command=_COMMAND_ANALYZE)
+
+    parser.add_argument(
+        'input',
+        type=str,
+        help='input for the parser')
+
+
 def _add_parser_category_test(subparsers):
     parser = subparsers.add_parser(_COMMAND_TEST, help='runs all the tests on the parser.')
     parser.set_defaults(command=_COMMAND_TEST)
@@ -64,20 +94,31 @@ def _parse_arguments():
     _add_parser_category_split(subparsers)
     _add_parser_category_pronounce(subparsers)
     _add_parser_category_test(subparsers)
+    _add_parser_category_analyze(subparsers)
     args = parser.parse_args()
     if args.command is None:
         parser.print_help()
 
     elif args.command == _COMMAND_TEST:
         test_parser()
+
     elif args.command == _COMMAND_SPLIT:
-        word = Word(args.input)
-        word.display_syllable_list()
-        print(word.get_split_word())
+        input_words = args.input.split()
+        for input_word in input_words:
+            word = Word(input_word)
+            word.display_syllable_list()
+            print(word.get_split_word())
     elif args.command == _COMMAND_PRONOUNCE:
-        word = Word(args.input)
-        word.pronounce_word()
-        print(word.get_split_word())
+        input_words = args.input.split()
+        for input_word in input_words:
+            word = Word(input_word)
+            word = Word(args.input)
+            word.pronounce_word()
+    elif args.command == _COMMAND_ANALYZE:
+
+        print('Analyzing...')
+        input_words = args.input.split()
+        analyze(input_words)
 
     return (args.command, args)
 
