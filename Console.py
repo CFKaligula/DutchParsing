@@ -6,6 +6,7 @@ _COMMAND_SPLIT = 'split'
 _COMMAND_PRONOUNCE = 'pronounce'
 _COMMAND_TEST = 'test'
 _COMMAND_ANALYZE = 'analyze'
+_COMMAND_ANALYZE_FILE = 'analyze-file'
 
 
 def test_parser():
@@ -33,22 +34,22 @@ def test_parser():
         print('*********All Tests Successful************')
 
 
-def analyze(input_words):
+def analyze(input_sentence):
+    words = input_sentence.split('\n')
     analyze_dict = {}
-    for input_word in input_words:
+    for input_word in words:
         word = Word(input_word)
         for syllable in word.syllables:
             if syllable.text not in analyze_dict:
                 analyze_dict[syllable.text] = 1
             else:
                 analyze_dict[syllable.text] += 1
-        sorted_dict = {k: v for k, v in sorted(
-            analyze_dict.items(), key=lambda item: item[1], reverse=True)}
-        print(
-            f'there were a total of {len(analyze_dict)} unique syllables in the text, of {len(input_words)} words.')
-
-        top5 = {key: value for key, value in list(sorted_dict.items())[0:5]}
-        print(f'the most common syllables were {top5}')
+    sorted_dict = {k: v for k, v in sorted(
+        analyze_dict.items(), key=lambda item: item[1], reverse=True)}
+    print(
+        f'there were a total of {len(analyze_dict)} unique syllables in the text, of {len(words)} words.')
+    top10 = {key: value for key, value in list(sorted_dict.items())[0:100]}
+    print(f'the most common syllables were {top10}')
 
 
 def _add_parser_category_split(subparsers):
@@ -81,6 +82,16 @@ def _add_parser_category_analyze(subparsers):
         help='input for the parser')
 
 
+def _add_parser_category_analyze_file(subparsers):
+    parser = subparsers.add_parser(_COMMAND_ANALYZE_FILE, help='pronounces the input word.')
+    parser.set_defaults(command=_COMMAND_ANALYZE_FILE)
+
+    parser.add_argument(
+        'input',
+        type=str,
+        help='input for the parser')
+
+
 def _add_parser_category_test(subparsers):
     parser = subparsers.add_parser(_COMMAND_TEST, help='runs all the tests on the parser.')
     parser.set_defaults(command=_COMMAND_TEST)
@@ -94,6 +105,7 @@ def _parse_arguments():
     _add_parser_category_split(subparsers)
     _add_parser_category_pronounce(subparsers)
     _add_parser_category_test(subparsers)
+    _add_parser_category_analyze_file(subparsers)
     _add_parser_category_analyze(subparsers)
     args = parser.parse_args()
     if args.command is None:
@@ -115,11 +127,10 @@ def _parse_arguments():
             word = Word(args.input)
             word.pronounce_word()
     elif args.command == _COMMAND_ANALYZE:
-
-        print('Analyzing...')
-        input_words = args.input.split()
-        analyze(input_words)
-
+        analyze(args.input)
+    elif args.command == _COMMAND_ANALYZE_FILE:
+        f = open(args.input, "r",  encoding='utf8')
+        analyze(f.read())
     return (args.command, args)
 
 

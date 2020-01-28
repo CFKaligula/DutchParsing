@@ -53,7 +53,7 @@ class Syllable:
         if len(self._prev_syl.text) > 0 and not (self._start_cons + self._vowels == 'tje'):
             # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
             while self._start_cons not in (Letters.VALID_CONSONANT_COMBINATIONS | Letters.CONSONANTS):
-                print(f'start cons {self._start_cons} is not a valid consonant combination')
+                #print(f'start cons {self._start_cons} is not a valid consonant combination')
                 self._prev_syl._end_cons += self._start_cons[0]
                 self._start_cons = self._start_cons[1:]
 

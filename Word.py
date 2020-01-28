@@ -51,7 +51,7 @@ class Word:
         for index in range(start, self._length+1):
             if index >= self._length:
                 break
-            print(f'index letter: {word[index]}, {index}')
+            # print(f'index letter: {word[index]}, {index}')
             next_let = word[index+1] if index < self._length-1 else ''
             if word[index] == '-':
                 index += 1
@@ -84,12 +84,13 @@ class Word:
                     index = syl.fix_end_cons(index)
                     break
             else:
-                print(f'"{word[index]}" is not a letter.')
+                # print(f'"{word[index]}" is not a letter.')
+                pass
         if syl.vowels in Letters.VOWELS_WITH_ACCENTS:
-            print(f' The syllable contains an accent, {syl.vowels}.')
+            #print(f' The syllable contains an accent, {syl.vowels}.')
             syl.remove_accents()
         syllable_list.append(syl)
-        syl.display_cons_and_vowels()
+        #syl.display_cons_and_vowels()
         syl.check_start_cons()
 
         return self.initialize_syllables(word, index, syllable_list)
