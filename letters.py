@@ -10,7 +10,7 @@ TRIPTHONGS = {'oei', 'eau', 'eeu', 'ooi', 'aai', 'oeu', 'ieu'}
 BREAK_SYMBOL = '-'
 VALID_CONSONANT_COMBINATIONS = {'',
                                 'bl', 'br',
-                                'cl', 'cr',
+                                'cl', 'cr', 'ch',
                                 'dr', 'dl', 'dr',
                                 'fl', 'fj' 'fr',
                                 'gr', 'gl', 'gr',
@@ -23,7 +23,7 @@ VALID_CONSONANT_COMBINATIONS = {'',
                                 'p', 'pl', 'pr',
                                 # q
                                 # r
-                                'sh', 'sk', 'sl', 'sj', 'sm', 'sn', 'sp', 'sr', 'st', 'sw', 'sch', 'schr', 'schl', 'str',
+                                'sk', 'sl', 'sj', 'sm', 'sn', 'sp', 'sr', 'st', 'sw', 'sch', 'schr', 'schl', 'str', 'spr', 'spl', 'scr',  # sh
                                 'th', 'tr',
                                 'vl', 'vr',
                                 'wr',

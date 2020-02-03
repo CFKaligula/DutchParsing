@@ -7,6 +7,7 @@ _COMMAND_PRONOUNCE = 'pronounce'
 _COMMAND_TEST = 'test'
 _COMMAND_ANALYZE = 'analyze'
 _COMMAND_ANALYZE_FILE = 'analyze-file'
+_COMMAND_PHONETIC = 'phonetic'
 
 
 def test_parser():
@@ -29,9 +30,11 @@ def test_parser():
             Word('ijsyoghurt').get_split_word() == 'ijs-yog-hurt' and \
             Word('sexy').get_split_word() == 'sex-y' and \
             Word('yoghurt').get_split_word() == 'yog-hurt' and \
-            Word('quasi').get_split_word() == 'quasi' and \
+            Word('quasi').get_split_word() == 'qua-si' and \
             Word('hoofdstad').get_split_word() == 'hoofd-stad':
-        print('*********All Tests Successful************')
+        print('***.***.*** All Tests Successful ***.***.*** ')
+    else:
+        print('***Test failed ***')
 
 
 def analyze(input_sentence):
@@ -73,7 +76,7 @@ def _add_parser_category_pronounce(subparsers):
 
 
 def _add_parser_category_analyze(subparsers):
-    parser = subparsers.add_parser(_COMMAND_ANALYZE, help='pronounces the input word.')
+    parser = subparsers.add_parser(_COMMAND_ANALYZE, help='analyzes the input word.')
     parser.set_defaults(command=_COMMAND_ANALYZE)
 
     parser.add_argument(
@@ -83,8 +86,19 @@ def _add_parser_category_analyze(subparsers):
 
 
 def _add_parser_category_analyze_file(subparsers):
-    parser = subparsers.add_parser(_COMMAND_ANALYZE_FILE, help='pronounces the input word.')
+    parser = subparsers.add_parser(_COMMAND_ANALYZE_FILE, help='analyzes the input file.')
     parser.set_defaults(command=_COMMAND_ANALYZE_FILE)
+
+    parser.add_argument(
+        'input',
+        type=str,
+        help='input for the parser')
+
+
+def _add_parser_category_phonetic(subparsers):
+    parser = subparsers.add_parser(
+        _COMMAND_PHONETIC, help='gives the phonetic version of the input word.')
+    parser.set_defaults(command=_COMMAND_PHONETIC)
 
     parser.add_argument(
         'input',
@@ -107,6 +121,8 @@ def _parse_arguments():
     _add_parser_category_test(subparsers)
     _add_parser_category_analyze_file(subparsers)
     _add_parser_category_analyze(subparsers)
+    _add_parser_category_phonetic(subparsers)
+
     args = parser.parse_args()
     if args.command is None:
         parser.print_help()
@@ -126,10 +142,18 @@ def _parse_arguments():
             word = Word(input_word)
             word = Word(args.input)
             word.pronounce_word()
+    elif args.command == _COMMAND_PHONETIC:
+        input_words = args.input.split()
+        for input_word in input_words:
+            word = Word(input_word)
+            print(word.pronunciation)
     elif args.command == _COMMAND_ANALYZE:
         analyze(args.input)
     elif args.command == _COMMAND_ANALYZE_FILE:
-        f = open(args.input, "r",  encoding='utf8')
+        try:
+            f = open(args.input, "r",  encoding='utf8')
+        except:
+            f = open(args.input, "r")
         analyze(f.read())
     return (args.command, args)
 

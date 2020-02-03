@@ -1,9 +1,43 @@
 {
     "cSpell.ignoreWords": [
+        "gaak",
         "koei",
+        "ligen",
         "schl",
         "schr",
         "veau",
         "vloe"
+    ],
+    "python.pythonPath": "C:\\Users\\s152706\\AppData\\Local\\Programs\\Python\\Python37\\python.exe",
+    "cSpell.language": "nl",
+    "cSpell.enabledLanguageIds": [
+        "cpp",
+        "csharp",
+        "css",
+        "git-commit",
+        "go",
+        "handlebars",
+        "haskell",
+        "html",
+        "jade",
+        "java",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "jsonc",
+        "latex",
+        "less",
+        "php",
+        "plaintext",
+        "pug",
+        "restructuredtext",
+        "rust",
+        "scala",
+        "scss",
+        "text",
+        "typescript",
+        "typescriptreact",
+        "yaml",
+        "yml"
     ]
 }
