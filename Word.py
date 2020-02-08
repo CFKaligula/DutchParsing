@@ -5,6 +5,7 @@ import Phonetics
 TO BE IMPLEMENTED:
 * Split
     * ijs-yog-hurt but ba-by-opera, probably impossible
+    * chronische should be chro-ni-sche not chro-nisc-he
 * Sound
     * sound files for consonants and some dipthongs
     * sche at end of word (technisch) is pronounced as s
@@ -15,7 +16,9 @@ TO BE IMPLEMENTED:
     * Load dictionary, get pronunciation for every word
     * find way to have a term for every vowel sound
     * full rhyme and only vowel rhyme 
-* should probably make a pronunciation variable for syllables
+* Pronunciation
+    * scepter, sceptisch
+
 '''
 
 
@@ -112,9 +115,9 @@ class Word:
 
     def initialize_pronunciation(self):
         for syllable in self.syllables:
-            self._pronunciation += syllable.start_cons
-            self._pronunciation += syllable.find_vowel_pronunciation()
-            self._pronunciation += syllable.end_cons
+            self._pronunciation += Phonetics.find_start_con_pronunciation(syllable)
+            self._pronunciation += Phonetics.find_vowel_pronunciation(syllable)
+            self._pronunciation += Phonetics.find_end_con_pronunciation(syllable)
 
     def display_pronunciation(self):
         result = ''

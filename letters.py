@@ -10,7 +10,7 @@ TRIPTHONGS = {'oei', 'eau', 'eeu', 'ooi', 'aai', 'oeu', 'ieu'}
 BREAK_SYMBOL = '-'
 VALID_CONSONANT_COMBINATIONS = {'',
                                 'bl', 'br',
-                                'cl', 'cr', 'ch',
+                                'cl', 'cr',
                                 'dr', 'dl', 'dr',
                                 'fl', 'fj' 'fr',
                                 'gr', 'gl', 'gr',
@@ -31,6 +31,8 @@ VALID_CONSONANT_COMBINATIONS = {'',
                                 # y
                                 'z', 'zw'
                                 }
+
+PREPOSITION_EXCEPTIONS = {'beter', 'geven', 'ver', 'beven', 'bezem', 'gele'}
 
 
 def remove_accent(letter):

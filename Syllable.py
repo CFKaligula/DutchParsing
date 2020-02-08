@@ -179,31 +179,4 @@ class Syllable:
         vowel_file_path = f'soundFiles/vowels/processed/{file_name}.mp3'
         print(f'playing {vowel_file_path} ', )
         playsound(vowel_file_path)
-
         # time.sleep(0.1)
-    def find_vowel_pronunciation(self):
-        vowel_sound = None
-
-        if self.vowels in Letters.VOWELS:
-            if not self.end_cons:
-                vowel_sound = self.find_open_vowel_pronunciation()
-            elif (self.vowels + self.end_cons) in {'en', 'er'} and not self.next_syl:
-                return '0'
-            else:
-                vowel_sound = self.vowels
-
-        elif self._end_cons and self._end_cons[0] in {'r', 'l'}:
-            # if the end cons start with an r or an l, some dipthongs are pronounced differently
-            vowel_sound = Phonetics.r_or_l_phonetic_symbol(self.vowels)
-        else:
-            vowel_sound = Phonetics.default_phonetic_symbol(self.vowels)
-        #print(f'Vowel sound for vowel {self.vowels}: {vowel_sound}')
-        return vowel_sound
-
-    def find_open_vowel_pronunciation(self):
-        if self.text in {'ge', 'be', } and self.word.text not in {'beter', 'bezem'}:
-            return '0'
-        elif self.next_syl:
-            return Phonetics.add_accent(self.vowels)
-        else:
-            return Phonetics.ending_vowel(self.vowels)
