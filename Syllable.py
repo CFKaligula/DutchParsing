@@ -79,7 +79,11 @@ class Syllable:
                 # for diminutives the 'tj' will be the start of the next one e.g. au-too-tje
                 self._end_cons = ''
                 index -= 2
-            elif self._end_cons not in ['', 'ch', 'kw', 'th', ]:
+            if self.end_cons == 'sch':
+                # for diminutives the 'tj' will be the start of the next one e.g. au-too-tje
+                self._end_cons = ''
+                index -= 3
+            elif self._end_cons not in ['', 'ch', 'kw', 'th', 'ng']:
                 # if there are multiple consonants (that are not one of the fixed ones) we give all but the first to the next syllable
                 index -= len(self.end_cons) - 1
                 self._end_cons = self.end_cons[0]
@@ -87,7 +91,7 @@ class Syllable:
         return index
 
     def add_cons(self, cons):
-        if self.vowels:
+        if self.vowels is not '':
             if self.vowels + cons == 'ij':
                 # special check for dipthong 'ij'
                 self._vowels += cons
@@ -98,7 +102,7 @@ class Syllable:
 
     def add_vowel(self, vowel, next_letter):
         break_bool = False
-        if not self.vowels:
+        if self.vowels is '':
             self._vowels += vowel
         elif (self.start_cons + self.vowels == 'qu'):
             self._vowels += vowel
@@ -117,14 +121,12 @@ class Syllable:
         return break_bool
 
     def add_y(self):
-        if self.end_cons:
-            self.add_vowel('y', '')
-        elif self.vowels:
+        if self.vowels is not '':
             self.add_cons('y')
-        elif self.start_cons:
+        elif self.start_cons is not '':
             self.add_vowel('y', '')
         else:
-            self.add_cons('y')
+            self.add_vowel('y', '')
 
     def remove_accents(self):
         self._vowels = ''.join(list(map(Letters.remove_accent, self._vowels)))

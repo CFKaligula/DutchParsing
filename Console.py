@@ -29,8 +29,11 @@ def test_parser():
             Word('baby').get_split_word() == 'ba-by' and \
             Word('ijsyoghurt').get_split_word() == 'ijs-yog-hurt' and \
             Word('sexy').get_split_word() == 'sex-y' and \
+            Word('babby').get_split_word() == 'bab-by' and \
             Word('yoghurt').get_split_word() == 'yog-hurt' and \
             Word('quasi').get_split_word() == 'qua-si' and \
+            Word('chronische').get_split_word() == 'chro-ni-sche' and \
+            Word('lange').get_split_word() == 'lang-e' and \
             Word('hoofdstad').get_split_word() == 'hoofd-stad':
         print('***.***.*** All Tests Successful ***.***.*** ')
     else:

@@ -5,13 +5,14 @@ import Phonetics
 TO BE IMPLEMENTED:
 * Split
     * ijs-yog-hurt but ba-by-opera, probably impossible
-    * chronische should be chro-ni-sche not chro-nisc-he
 * Sound
     * sound files for consonants and some dipthongs
     * sche at end of word (technisch) is pronounced as s
     * nieuw, duw, hoi, groei, leeuw (just ignore the w)
     * oer and uil, vowel pronunciation should be oe-uhr, ui-uhr where uh== schwa
     * qu pronounced as kw
+    * y
+    * find start pron and the find_end_pron do not copy paste, make generic func
 * Rhyme inventory
     * Load dictionary, get pronunciation for every word
     * find way to have a term for every vowel sound
@@ -81,11 +82,10 @@ class Word:
                         index = syl.fix_end_cons(index)
                         break
                     else:
-                        print(syl.end_cons)
                         syl.add_y()
                 else:
                     syl.add_cons(self.text[index])
-            elif self.text[index] in (Letters.VOWELS):
+            elif self.text[index] in Letters.VOWELS:
                 if len(syl.end_cons) > 0:
                     index = syl.fix_end_cons(index)
                     break
@@ -115,9 +115,12 @@ class Word:
 
     def initialize_pronunciation(self):
         for syllable in self.syllables:
-            self._pronunciation += Phonetics.find_start_con_pronunciation(syllable)
-            self._pronunciation += Phonetics.find_vowel_pronunciation(syllable)
-            self._pronunciation += Phonetics.find_end_con_pronunciation(syllable)
+            if syllable.start_cons:
+                self._pronunciation += Phonetics.find_start_con_pronunciation(syllable)
+            if syllable.vowels:
+                self._pronunciation += Phonetics.find_vowel_pronunciation(syllable)
+            if syllable.end_cons:
+                self._pronunciation += Phonetics.find_end_con_pronunciation(syllable)
 
     def display_pronunciation(self):
         result = ''

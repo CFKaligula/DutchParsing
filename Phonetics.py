@@ -9,7 +9,7 @@ def add_accent(vowel):
         'o': 'ó',  # boven
         'u': 'ú'   #
     }
-    return switcher.get(vowel, 'Could not find a replacement')
+    return switcher.get(vowel, f'Could not find a replacement for {vowel}')
 
 
 def ending_vowel(vowel):
@@ -18,9 +18,10 @@ def ending_vowel(vowel):
         'e': '0',  # blij-e
         'i': 'í',  #
         'o': 'ó',  # boven
-        'u': 'ú'   #
+        'u': 'ú',  #
+        'y': 'i'   # sexy
     }
-    return switcher.get(vowel, 'Could not find a replacement')
+    return switcher.get(vowel, f'Could not find a replacement for {vowel}')
 
 
 def default_phonetic_symbol(dipthong):
@@ -34,9 +35,10 @@ def default_phonetic_symbol(dipthong):
         'ij': 'ë',
         'ei': 'ë',
         'oe': 'ö',
+        'y': 'i'   # sexy
 
     }
-    return switcher.get(dipthong, 'Could not find a replacement')
+    return switcher.get(dipthong, f'Could not find a replacement for {dipthong}')
 
 
 def r_or_l_phonetic_symbol(dipthong):
@@ -67,6 +69,8 @@ def find_start_con_pronunciation(syllable):
 
         elif syllable.start_cons[i] == 'y':
             start_con_sound += 'j'
+        elif syllable.start_cons[i] == 'x':
+            start_con_sound += 'ks'
         elif syllable.start_cons[i] == 'h' and syllable.start_cons[i-1] is not None and syllable.start_cons[i-1] == 'c':
             continue
         else:
@@ -108,13 +112,14 @@ def find_end_con_pronunciation(syllable):
         end_con_sound = 's'
     else:
         for i in range(0, len(syllable.end_cons)):
-            if syllable.end_cons[i] == 'n' and syllable.end_cons[i+1] == 'g':
+            if syllable.end_cons[i] == 'n' and i+1 <= len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'g':
                 end_con_sound += 'ñ'
-            elif syllable.end_cons[i-1] is not None and syllable.end_cons[i-1] == 'n' and syllable.end_cons[i] == 'g':
-                print('skipping for ng')
+            elif i > 0 and syllable.end_cons[i-1] == 'n' and syllable.end_cons[i] == 'g':
                 continue
             elif syllable.end_cons[i] == 'y':
                 end_con_sound += 'j'
+            elif syllable.end_cons[i] == 'x':
+                end_con_sound += 'ks'
             else:
                 end_con_sound += syllable.end_cons[i]
     return end_con_sound
