@@ -1,15 +1,24 @@
 {
     "cSpell.ignoreWords": [
+        "blasée",
+        "fstig",
         "gaak",
+        "gisch",
+        "herf",
         "koei",
+        "laik",
+        "laétagere",
         "ligen",
+        "sche",
         "schl",
         "schr",
+        "tootj",
         "veau",
-        "vloe"
+        "vloe",
+        "zeten"
     ],
     "python.pythonPath": "C:\\Program Files\\Python37\\python.exe",
-    "cSpell.language": "nl",
+    "cSpell.language": "nl, en",
     "cSpell.enabledLanguageIds": [
         "cpp",
         "csharp",
@@ -27,6 +36,7 @@
         "jsonc",
         "latex",
         "less",
+        "markdown",
         "php",
         "plaintext",
         "pug",
