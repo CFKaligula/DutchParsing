@@ -137,7 +137,6 @@ def _parse_arguments():
         input_words = args.input.split()
         for input_word in input_words:
             word = Word(input_word)
-            word.display_syllable_list()
             print(word.get_split_word())
     elif args.command == _COMMAND_PRONOUNCE:
         input_words = args.input.split()

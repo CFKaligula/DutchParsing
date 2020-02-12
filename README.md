@@ -20,8 +20,21 @@ For English loanwords, y should be a vowel if there are already starting consona
 You can input a word (or multiple) to the console script and it will split it up in syllables for you:
 
 ``` bash
-C:\...\DutchParsing>python Console.py voorbeeld
+$WORD= lopen # any word you want to input
+C:\...\DutchParsing>python Console.py split $WORD
+lo-pen
+
 ```
+
+You can input a word (or multiple) to the console script and it will give a phonetic translation of the word using this program's system:
+
+``` bash
+$WORD= lopen # any word you want to input
+C:\...\DutchParsing>python Console.py phonetic$WORD
+lóp0n
+```
+
+For info about the pronunciation of each symbol see the PhoneticSystem file.
 
 ## Copying
 
