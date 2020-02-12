@@ -67,13 +67,14 @@ oeu = uu (long u)
 
 ### New Symbols
 
-* ñ = ng (altgr + n)
+* ñ = ng (alt-gr + n)
 * g = g, voiced
 * æ = g, unvoiced (altgr + z it looks like an x which is the ipa symbol)
 * r  = r, flap
 * ®  = r, g-like
 * R  = r, tril
 * þ  = r, american (alt-gr t)
+* tj = ð (alt-gr d)
 
 Symbols for foreign sounds are probably undesired, we have no way of knowing if jam = zjem or jam.
 

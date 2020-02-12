@@ -74,6 +74,9 @@ def phonetic_tester():
         'yoga': 'jógá',
         'schaar': 'sgá0r',
         'scheren': 'sgiir0n',
+        'praatje': 'práð0',
+        'quinty': 'kwintí',
+        'quasi': 'kwásí'
     }
     for test in test_dict:
         print(test, end=",") if Word(
@@ -178,26 +181,30 @@ def _parse_arguments():
         input_words = args.input.split()
         for input_word in input_words:
             word = Word(input_word)
-            print(word.get_split_word())
+            print(word.get_split_word(), end=" ")
+
     elif args.command == _COMMAND_PRONOUNCE:
         input_words = args.input.split()
         for input_word in input_words:
             word = Word(input_word)
-            word = Word(args.input)
             word.pronounce_word()
+
     elif args.command == _COMMAND_PHONETIC:
         input_words = args.input.split()
         for input_word in input_words:
             word = Word(input_word)
-            print(word.pronunciation)
+            print(word.pronunciation, end=" ")
+
     elif args.command == _COMMAND_ANALYZE:
         analyze(args.input)
+
     elif args.command == _COMMAND_ANALYZE_FILE:
         try:
             f = open(args.input, "r",  encoding='utf8')
         except:
             f = open(args.input, "r")
         analyze(f.read())
+
     return (args.command, args)
 
 

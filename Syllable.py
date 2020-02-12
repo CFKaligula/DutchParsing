@@ -1,4 +1,4 @@
-import Phonetics
+
 import Letters
 import time
 from playsound import playsound
