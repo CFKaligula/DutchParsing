@@ -13,6 +13,7 @@ TO BE IMPLEMENTED:
     * qu pronounced as kw
     * y
     * find start pron and the find_end_pron do not copy paste, make generic func
+    * i before sch should be í 
 * Rhyme inventory
     * Load dictionary, get pronunciation for every word
     * find way to have a term for every vowel sound
@@ -107,10 +108,9 @@ class Word:
         if syl.vowels in Letters.VOWELS_WITH_ACCENTS:
             #print(f' The syllable contains an accent, {syl.vowels}.')
             syl.remove_accents()
-        syllable_list.append(syl)
         # syl.display_cons_and_vowels()
-        syl.check_start_cons()
-
+        syl.fix_start_cons()
+        syllable_list.append(syl)
         return self.initialize_syllables(index, syllable_list)
 
     def initialize_pronunciation(self):

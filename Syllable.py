@@ -60,7 +60,7 @@ class Syllable:
                 self._vowels += letter
                 found_vowel = True
 
-    def check_start_cons(self):
+    def fix_start_cons(self):
         if self._prev_syl.text and not (self._start_cons + self._vowels == 'tje'):
             # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
             while self._start_cons not in (Letters.VALID_CONSONANT_COMBINATIONS | Letters.CONSONANTS):

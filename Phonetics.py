@@ -60,18 +60,23 @@ def find_start_con_pronunciation(syllable):
 
     for i in range(0, len(syllable.start_cons)):
         if syllable.start_cons[i] == 'c':
-            if i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'h':
+            if i > 0 and syllable.start_cons[i-1] == 's':
+                continue
+            elif i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'h':
                 start_con_sound += 'g'
             elif i < len(syllable.start_cons)-1 or syllable.vowels[0] in {'a', 'o', 'u'} or syllable.start_cons + syllable.vowels[0] == 'sce':
                 start_con_sound += 'k'
             else:
                 start_con_sound += 's'
-
+        elif syllable.start_cons[i] == 's' and i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'c' and i < len(syllable.start_cons) and syllable.start_cons[i+2] == 'h':
+            start_con_sound += 's'
+        elif syllable.start_cons[i] == 'c' and i > 0 and syllable.start_cons[i-1] == 's':
+            continue
         elif syllable.start_cons[i] == 'y':
             start_con_sound += 'j'
         elif syllable.start_cons[i] == 'x':
             start_con_sound += 'ks'
-        elif syllable.start_cons[i] == 'h' and syllable.start_cons[i-1] is not None and syllable.start_cons[i-1] == 'c':
+        elif syllable.start_cons[i] == 'h' and i > 0 and syllable.start_cons[i-1] == 'c':
             continue
         else:
             start_con_sound += syllable.start_cons[i]
@@ -114,6 +119,10 @@ def find_end_con_pronunciation(syllable):
         for i in range(0, len(syllable.end_cons)):
             if syllable.end_cons[i] == 'n' and i+1 <= len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'g':
                 end_con_sound += 'ñ'
+            elif syllable.end_cons[i] == 's' and i < len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'c' and i < len(syllable.end_cons)+1 and syllable.end_cons[i+2] == 'h':
+                end_con_sound += 's'
+            elif syllable.end_cons[i] == 'c' and i > 0 and syllable.end_cons[i-1] == 's':
+                continue
             elif i > 0 and syllable.end_cons[i-1] == 'n' and syllable.end_cons[i] == 'g':
                 continue
             elif syllable.end_cons[i] == 'y':
