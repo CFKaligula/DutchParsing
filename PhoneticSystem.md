@@ -42,8 +42,9 @@ eu, ui, oe all the same
 
 * ä = au/ou
 * ü = ui
-* ë = ei/ij
+* ï = ij
 * ö = oe
+* ë = eu
 
 ## Dipthong on w
 
@@ -66,19 +67,19 @@ oeu = uu (long u)
 
 ### New Symbols
 
-ñ = ng (altgr + n)
-g = g, voiced
-æ = g, unvoiced (altgr + z it looks like an x which is the ipa symbol)
-r  = r, flap
-®  = r, g-like
-R  = r, tril
-þ  = r, american (alt-gr t)
+* ñ = ng (altgr + n)
+* g = g, voiced
+* æ = g, unvoiced (altgr + z it looks like an x which is the ipa symbol)
+* r  = r, flap
+* ®  = r, g-like
+* R  = r, tril
+* þ  = r, american (alt-gr t)
 
 Symbols for foreign sounds are probably undesired, we have no way of knowing if jam = zjem or jam.
 
 ### Conversion Rules
 
-ch = g
-sch at end of word (legendarisch) = s
-y as consonant = j
-qu = kw
+* ch = g
+* sch at end of word (legendarisch) = s
+* y as consonant = j
+* qu = kw

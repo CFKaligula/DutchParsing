@@ -11,33 +11,74 @@ _COMMAND_PHONETIC = 'phonetic'
 
 
 def test_parser():
-    if Word('dromen').get_split_word() == 'dro-men' and \
-            Word('leerling').get_split_word() == 'leer-ling' and \
-            Word('ambtenaar').get_split_word() == 'amb-te-naar' and \
-            Word('koeien').get_split_word() == 'koei-en' and \
-            Word('piano').get_split_word() == 'pi-a-no' and \
-            Word('niveau').get_split_word() == 'ni-veau' and \
-            Word('radio').get_split_word() == 'ra-di-o' and \
-            Word('blije').get_split_word() == 'blij-e' and \
-            Word('taxi').get_split_word() == 'tax-i' and \
-            Word('lachen').get_split_word() == 'lach-en' and \
-            Word('autootje').get_split_word() == 'au-too-tje' and \
-            Word('herfstjuk').get_split_word() == 'herfst-juk' and \
-            Word('beïnvloeden').get_split_word() == 'be-in-vloe-den' and \
-            Word('blok-étagere').get_split_word() == 'blok-e-ta-ge-re' and \
-            Word('blaséeend').get_split_word() == 'bla-se-eend' and \
-            Word('baby').get_split_word() == 'ba-by' and \
-            Word('ijsyoghurt').get_split_word() == 'ijs-yog-hurt' and \
-            Word('sexy').get_split_word() == 'sex-y' and \
-            Word('babby').get_split_word() == 'bab-by' and \
-            Word('yoghurt').get_split_word() == 'yog-hurt' and \
-            Word('quasi').get_split_word() == 'qua-si' and \
-            Word('chronische').get_split_word() == 'chro-ni-sche' and \
-            Word('lange').get_split_word() == 'lang-e' and \
-            Word('hoofdstad').get_split_word() == 'hoofd-stad':
-        print('***.***.*** All Tests Successful ***.***.*** ')
-    else:
-        print('***Test failed ***')
+    phonetic_tester()
+    split_tester()
+
+
+def split_tester():
+    test_dict = {
+        'dromen':  'dro-men',
+        'leerling':  'leer-ling',
+        'ambtenaar':  'amb-te-naar',
+        'koeien':  'koei-en',
+        'piano':  'pi-a-no',
+        'niveau':  'ni-veau',
+        'radio':  'ra-di-o',
+        'blije': 'blij-e',
+        'taxi': 'tax-i',
+        'lachen': 'lach-en',
+        'autootje': 'au-too-tje',
+        'herfstjuk': 'herfst-juk',
+        'beïnvloeden': 'be-in-vloe-den',
+        'blok-étagere': 'blok-e-ta-ge-re',
+        'blaséeend':  'bla-se-eend',
+        'baby': 'ba-by',
+        'ijsyoghurt': 'ijs-yog-hurt',
+        'sexy': 'sex-y',
+        'babby': 'bab-by',
+        'yoghurt': 'yog-hurt',
+        'quasi': 'qua-si',
+        'chronische': 'chro-ni-sche',
+        'lange': 'lang-e',
+        'hoofdstad': 'hoofd-stad'
+    }
+    for test in test_dict:
+        print(test, end=",") if Word(test).get_split_word(
+        ) == test_dict[test] else print(f'\nFAILED {test}')
+    print('\n***.***.***Done with split tests***.***.***')
+
+
+def phonetic_tester():
+    test_dict = {
+        'ga': 'gá',
+        'gas': 'gas',
+        'gade': 'gád0',
+        'sexy': 'seksí',
+        'gaas': 'gás',
+        'gaal': 'gá0l',
+        'baas': 'bás',
+        'lijk': 'lïk',
+        'bijl': 'beel',
+        'lang': 'lañ',
+        'chronische': 'grónís0',
+        'chronisch': 'grónís',
+        'scepter': 'sept0r',
+        'ceder': 'séd0r',
+        'casus': 'kásus',
+        'herkennen': 'herkenn0n',
+        'denken': 'denk0n',
+        'bezem': 'bézem',
+        'bezet': 'b0zet',
+        'gag': 'gaæ',
+        'taxi': 'taksí',
+        'yoga': 'jógá',
+        'schaar': 'sgá0r',
+        'scheren': 'sgiir0n',
+    }
+    for test in test_dict:
+        print(test, end=",") if Word(
+            test).pronunciation == test_dict[test] else print(f'\nFAILED {test}, GOT {Word(test).pronunciation} INSTEAD')
+    print('\n***.***.***Done with phonetic tests***.***.***')
 
 
 def analyze(input_sentence):
