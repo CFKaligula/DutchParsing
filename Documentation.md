@@ -100,3 +100,17 @@ You can test the tool by running the `test` command which will run a bunch of te
 C:\...\DutchParsing>python Console.py test
 ***.***.*** All Tests Successful ***.***.***
 ```
+
+You can analyze a file or a piece of text with the `analyze` command, it will tell you some info about the piece of text.
+
+``` bash
+C:\...\DutchParsing>python Console.py analyze "een lekker stukkie tekst om te analyzeren."
+there were a total of 11 unique syllables in the text, of 7 sentences.
+the 10 most common syllables were {'een': 1, 'lek': 1, 'ker': 1, 'stuk': 1, 'kie': 1, 'tekst': 1, 'om': 1, 'te': 1, 'be': 1, 'kij': 1}
+```
+
+``` bash
+C:\...\DutchParsing>python Console.py analyze-file TextFiles/Het-Boek.txt
+there were a total of 4859 unique syllables in the text, of 761332 words.
+the 10 most common syllables were {'de': 65405, '': 33432, 'en': 31476, 'ge': 22602, 'van': 21798, 'te': 19022, 'den': 17583, 'het': 15858, 'ver': 15036, 'u': 14538}
+```

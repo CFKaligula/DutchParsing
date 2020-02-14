@@ -76,16 +76,17 @@ def phonetic_tester():
         'scheren': 'sgiir0n',
         'praatje': 'práð0',
         'quinty': 'kwintí',
-        'quasi': 'kwásí'
+        'quasi': 'kwásí',
+        'citroen': 'sítrön'
     }
     for test in test_dict:
         print(test, end=",") if Word(
-            test).pronunciation == test_dict[test] else print(f'\nFAILED {test}, GOT {Word(test).pronunciation} INSTEAD')
+            test).pronunciation == test_dict[test] else print(f'\nFAILED {test}, GOT {Word(test).pronunciation} INSTEAD OF test_dict[test]')
     print('\n***.***.***Done with phonetic tests***.***.***')
 
 
 def analyze(input_sentence):
-    words = input_sentence.split('\n')
+    words = input_sentence.split()
     analyze_dict = {}
     for input_word in words:
         word = Word(input_word)
@@ -98,8 +99,8 @@ def analyze(input_sentence):
         analyze_dict.items(), key=lambda item: item[1], reverse=True)}
     print(
         f'there were a total of {len(analyze_dict)} unique syllables in the text, of {len(words)} words.')
-    top10 = {key: value for key, value in list(sorted_dict.items())[0:100]}
-    print(f'the most common syllables were {top10}')
+    top10 = {key: value for key, value in list(sorted_dict.items())[0:10]}
+    print(f'the 10 most common syllables were {top10}')
 
 
 def _add_parser_category_split(subparsers):

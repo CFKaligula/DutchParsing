@@ -4,21 +4,18 @@ import Phonetics
 '''
 TO BE IMPLEMENTED:
 * Split
-    * ijs-yog-hurt but ba-by-opera, probably impossible
+    * ijs-yog-hurt but ba-by-opera, probably impossible. can do something for analyse where you see y has no vowels around it so it must be the vowel.
 * Sound
     * sound files for consonants and some dipthongs
     * sche at end of word (technisch) is pronounced as s
     * nieuw, duw, hoi, groei, leeuw (just ignore the w)
 * Rhyme inventory
-    * Load dictionary, get pronunciation for every word
-    * find way to have a term for every vowel sound
     * full rhyme and only vowel rhyme 
-* Pronunciation
+* Phonetics
     * ieuw, duw, eeuw
     * qu pronounced as kw
-    * y
     * find start pron and the find_end_pron do not copy paste, make generic func
-    * i after c should be í
+    * change trema to ^ so ä should be â á ä
 '''
 
 

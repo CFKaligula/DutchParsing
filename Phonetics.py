@@ -73,50 +73,69 @@ def next_syl_r_or_l(vowel):
     return switcher.get(vowel, add_accent(vowel))
 
 
+def default_consonant_replacement(consonants):
+    switcher = {
+        'y': 'j',
+        'x': 'ks',
+    }
+    return switcher.get(consonants, consonants)
+
+
 def find_start_con_pronunciation(syllable):
     start_con_sound = ''
     if syllable.start_cons == 'tj':
+        # autootje
         start_con_sound = 'ð'
     else:
         for i in range(0, len(syllable.start_cons)):
             if syllable.start_cons[i] == 'c':
                 if i > 0 and syllable.start_cons[i-1] == 's':
+                    # scepter
                     continue
                 elif i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'h':
+                    # ch, should not appear at the start but just in case
                     start_con_sound += 'g'
-                elif i < len(syllable.start_cons)-1 or syllable.vowels[0] in {'a', 'o', 'u'} or syllable.start_cons + syllable.vowels[0] == 'sce':
+                elif i < len(syllable.start_cons)-1 \
+                        or len(syllable.vowels) > 0 and (syllable.vowels[0] in {'a', 'o', 'u'} or syllable.start_cons + syllable.vowels[0] == 'sce'):
+                    # casus
                     start_con_sound += 'k'
                 else:
+                    # citrus
                     start_con_sound += 's'
 
             elif syllable.start_cons[i] == 's' \
                     and i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'c' \
                     and i < len(syllable.start_cons)-2 and syllable.start_cons[i+2] == 'h':
                 if syllable.vowels + syllable.end_cons == 'e' and syllable.next_syl is None:
+                    # word ending on sche like logische
                     start_con_sound += 's'
                 else:
+                    # scheen
                     start_con_sound += 'sg'
             elif syllable.start_cons[i] == 'c' and i > 0 and syllable.start_cons[i-1] == 's':
+                # sc will have been processed at the s already
                 continue
             elif syllable.start_cons[i] == 'q' and syllable.vowels != '' and syllable.vowels[0] == 'u':
+                # qua = kwa
                 start_con_sound += 'kw'
-            elif syllable.start_cons[i] == 'y':
-                start_con_sound += 'j'
-            elif syllable.start_cons[i] == 'x':
-                start_con_sound += 'ks'
             elif syllable.start_cons[i] == 'h' and i > 0 and syllable.start_cons[i-1] == 'c':
+                # ch
                 continue
             else:
-                start_con_sound += syllable.start_cons[i]
+                start_con_sound += default_consonant_replacement(syllable.start_cons[i])
     return start_con_sound
 
 
 def find_vowel_pronunciation(syllable):
     vowel_sound = ''
     if syllable.start_cons == 'q' and syllable.vowels != '' and syllable.vowels[0] == 'u':
+        # qua = kwa
         syl_without_qu = Syllable(
             input_text=syllable.vowels[1:]+syllable.end_cons, prev_syl=syllable.prev_syl, next_syl=syllable.next_syl)
         return find_vowel_pronunciation(syl_without_qu)
+    elif syllable.start_cons == 'c' and syllable.vowels == 'i':
+        # citroen
+        vowel_sound = add_accent(syllable.vowels)
     elif syllable.vowels in Letters.VOWELS:
         if not syllable.end_cons:
             if syllable.next_syl is not None and syllable.next_syl.start_cons != '' and syllable.next_syl.start_cons[0] in {'r', 'l'}:
@@ -125,9 +144,11 @@ def find_vowel_pronunciation(syllable):
             else:
                 vowel_sound = find_open_vowel_pronunciation(syllable)
         elif (syllable.vowels + syllable.end_cons) in {'en', 'er'} and not syllable.next_syl:
+            # lopen and loper
             return '0'
         elif syllable.end_cons == 'sch'and syllable.vowels == 'i':
-            vowel_sound += add_accent(syllable.vowels)
+            # logisch
+            vowel_sound = add_accent(syllable.vowels)
         else:
             vowel_sound = syllable.vowels
 
@@ -158,18 +179,15 @@ def find_end_con_pronunciation(syllable):
         for i in range(0, len(syllable.end_cons)):
             if syllable.end_cons[i] == 'n' and i+1 <= len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'g':
                 end_con_sound += 'ñ'
-            elif syllable.end_cons[i] == 's' and i < len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'c' and i < len(syllable.end_cons)+1 and syllable.end_cons[i+2] == 'h':
+
+            elif syllable.end_cons[i] == 's' and i+1 < len(syllable.end_cons) and syllable.end_cons[i+1] == 'c' and i+2 < len(syllable.end_cons) and syllable.end_cons[i+2] == 'h':
                 end_con_sound += 's'
             elif syllable.end_cons[i] == 'c' and i > 0 and syllable.end_cons[i-1] == 's':
                 continue
             elif i > 0 and syllable.end_cons[i-1] == 'n' and syllable.end_cons[i] == 'g':
                 continue
-            elif syllable.end_cons[i] == 'y':
-                end_con_sound += 'j'
-            elif syllable.end_cons[i] == 'x':
-                end_con_sound += 'ks'
             elif syllable.end_cons[i] == 'g':
                 end_con_sound += 'æ'
             else:
-                end_con_sound += syllable.end_cons[i]
+                end_con_sound += default_consonant_replacement(syllable.end_cons[i])
     return end_con_sound

@@ -74,7 +74,7 @@ oeu = uu (long u)
 * ®  = r, g-like
 * R  = r, tril
 * þ  = r, american (alt-gr t)
-* tj = ð (alt-gr d)
+* tj = ð (alt-gr d) since its not pronounced as t+j but as the 'ch as in english 'check'
 
 Symbols for foreign sounds are probably undesired, we have no way of knowing if jam = zjem or jam.
 
