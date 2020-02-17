@@ -88,6 +88,12 @@ def find_start_con_pronunciation(syllable):
         start_con_sound = 'ð'
     else:
         for i in range(0, len(syllable.start_cons)):
+            if i == 0 and syllable.start_cons[i] == syllable.prev_syl.end_cons[-1:]:
+                # blokken = bloken
+                continue
+            if i > 0 and syllable.start_cons[i] == syllable.start_cons[i-1]:
+                # appel = apel
+                continue
             if syllable.start_cons[i] == 'c':
                 if i > 0 and syllable.start_cons[i-1] == 's':
                     # scepter

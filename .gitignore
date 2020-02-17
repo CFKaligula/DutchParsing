@@ -125,5 +125,5 @@ dmypy.json
 .pyre/
 
 #test file
-test.py
+scribble.py
 .vscode/settings.json

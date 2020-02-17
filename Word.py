@@ -9,6 +9,8 @@ TO BE IMPLEMENTED:
     * sound files for consonants and some dipthongs
     * sche at end of word (technisch) is pronounced as s
     * nieuw, duw, hoi, groei, leeuw (just ignore the w)
+    * ontdek = ondek ( maybe not?)
+    * blokken = bloken 
 * Rhyme inventory
     * full rhyme and only vowel rhyme 
 * Phonetics
@@ -116,13 +118,6 @@ class Word:
                 self._pronunciation += Phonetics.find_vowel_pronunciation(syllable)
             if syllable.end_cons:
                 self._pronunciation += Phonetics.find_end_con_pronunciation(syllable)
-
-    def display_pronunciation(self):
-        result = ''
-        for syllable in self.pronunciation:
-            result += syllable + Letters.BREAK_SYMBOL
-        result = result[:-1]    # we remove the last break symbol
-        print(result)
 
     def pronounce_word(self):
         for syllable in self._syllables:

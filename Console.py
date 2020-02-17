@@ -1,6 +1,7 @@
 from argparse import ArgumentParser
 
 from Word import Word
+import Test
 
 _COMMAND_SPLIT = 'split'
 _COMMAND_PRONOUNCE = 'pronounce'
@@ -11,96 +12,41 @@ _COMMAND_PHONETIC = 'phonetic'
 
 
 def test_parser():
-    phonetic_tester()
-    split_tester()
-
-
-def split_tester():
-    test_dict = {
-        'dromen':  'dro-men',
-        'leerling':  'leer-ling',
-        'ambtenaar':  'amb-te-naar',
-        'koeien':  'koei-en',
-        'piano':  'pi-a-no',
-        'niveau':  'ni-veau',
-        'radio':  'ra-di-o',
-        'blije': 'blij-e',
-        'taxi': 'tax-i',
-        'lachen': 'lach-en',
-        'autootje': 'au-too-tje',
-        'herfstjuk': 'herfst-juk',
-        'beïnvloeden': 'be-in-vloe-den',
-        'blok-étagere': 'blok-e-ta-ge-re',
-        'blaséeend':  'bla-se-eend',
-        'baby': 'ba-by',
-        'ijsyoghurt': 'ijs-yog-hurt',
-        'sexy': 'sex-y',
-        'babby': 'bab-by',
-        'yoghurt': 'yog-hurt',
-        'quasi': 'qua-si',
-        'chronische': 'chro-ni-sche',
-        'lange': 'lang-e',
-        'hoofdstad': 'hoofd-stad'
-    }
-    for test in test_dict:
-        print(test, end=",") if Word(test).get_split_word(
-        ) == test_dict[test] else print(f'\nFAILED {test}')
-    print('\n***.***.***Done with split tests***.***.***')
-
-
-def phonetic_tester():
-    test_dict = {
-        'ga': 'gá',
-        'gas': 'gas',
-        'gade': 'gád0',
-        'sexy': 'seksí',
-        'gaas': 'gás',
-        'gaal': 'gá0l',
-        'baas': 'bás',
-        'lijk': 'lïk',
-        'bijl': 'beel',
-        'lang': 'lañ',
-        'chronische': 'grónís0',
-        'chronisch': 'grónís',
-        'scepter': 'sept0r',
-        'ceder': 'séd0r',
-        'casus': 'kásus',
-        'herkennen': 'herkenn0n',
-        'denken': 'denk0n',
-        'bezem': 'bézem',
-        'bezet': 'b0zet',
-        'gag': 'gaæ',
-        'taxi': 'taksí',
-        'yoga': 'jógá',
-        'schaar': 'sgá0r',
-        'scheren': 'sgiir0n',
-        'praatje': 'práð0',
-        'quinty': 'kwintí',
-        'quasi': 'kwásí',
-        'citroen': 'sítrön'
-    }
-    for test in test_dict:
-        print(test, end=",") if Word(
-            test).pronunciation == test_dict[test] else print(f'\nFAILED {test}, GOT {Word(test).pronunciation} INSTEAD OF test_dict[test]')
-    print('\n***.***.***Done with phonetic tests***.***.***')
+    Test.phonetic_tester()
+    Test.split_tester()
 
 
 def analyze(input_sentence):
     words = input_sentence.split()
     analyze_dict = {}
+    letter_analyze_dict = {}
+    syllable_count = 0
+    letter_count = 0
     for input_word in words:
         word = Word(input_word)
+        for letter in word.text:
+            letter_count += 1
+            if letter not in letter_analyze_dict:
+                letter_analyze_dict[letter] = 1
+            else:
+                letter_analyze_dict[letter] += 1
         for syllable in word.syllables:
+            syllable_count += 1
             if syllable.text not in analyze_dict:
                 analyze_dict[syllable.text] = 1
             else:
                 analyze_dict[syllable.text] += 1
     sorted_dict = {k: v for k, v in sorted(
         analyze_dict.items(), key=lambda item: item[1], reverse=True)}
+    letter_sorted_dict = {k: v for k, v in sorted(
+        letter_analyze_dict.items(), key=lambda item: item[1], reverse=True)}
     print(
-        f'there were a total of {len(analyze_dict)} unique syllables in the text, of {len(words)} words.')
+        f'there were a total of {len(analyze_dict)} unique syllables in the text, of {len(words)} words and {syllable_count} total syllables.')
+    print(f'there were a total of {letter_count} letters.')
     top10 = {key: value for key, value in list(sorted_dict.items())[0:10]}
     print(f'the 10 most common syllables were {top10}')
+    top10letters = {key: value for key, value in list(letter_sorted_dict.items())[0:10]}
+    print(f'the 10 most common letters were {top10letters}')
 
 
 def _add_parser_category_split(subparsers):

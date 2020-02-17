@@ -19,7 +19,7 @@ For English loanwords, y should be a vowel if there are already starting consona
 
 You can easily interact with the tool via the Console, with the command `split` you can get a word split up via the way explained above.
 
-``` bash
+``` powershell
 $WORD= lopen # any word you want to input
 C:\...\DutchParsing>python Console.py split $WORD
 lo-pen
@@ -28,7 +28,7 @@ lo-pen
 You can input a word together with the command `phonetic` to the console script and it will give a phonetic translation of the word using this program's system,
 for info about the pronunciation of each symbol see the PhoneticSystem file:
 
-``` bash
+``` powershell
 $WORD= lopen # any word you want to input
 C:\...\DutchParsing>python Console.py phonetic $WORD
 lóp0n
@@ -36,20 +36,22 @@ lóp0n
 
 You can test the tool by running the `test` command which will run a bunch of tests on the splitting to see if they still work correctly.
 
-``` bash
+``` powershell
 C:\...\DutchParsing>python Console.py test
 ***.***.*** All Tests Successful ***.***.***
 ```
 
 You can analyze a file or a piece of text with the `analyze` command, it will tell you some info about the piece of text.
 
-``` bash
-C:\...\DutchParsing>python Console.py analyze "een lekker stukkie tekst om te analyzeren."
-there were a total of 11 unique syllables in the text, of 7 sentences.
-the 10 most common syllables were {'een': 1, 'lek': 1, 'ker': 1, 'stuk': 1, 'kie': 1, 'tekst': 1, 'om': 1, 'te': 1, 'be': 1, 'kij': 1}
+``` powershell
+C:\...\DutchParsing>python Console.py analyze "een lekker stukkie tekst om te lezen."
+there were a total of 10 unique syllables in the text, of 7 words and 10 total syllables.
+there were a total of 31 letters.
+the 10 most common syllables were {'een': 1, 'lek': 1, 'ker': 1, 'stuk': 1, 'kie': 1, 'tekst': 1, 'om': 1, 'te': 1, 'le': 1, 'zen': 1}
+the 10 most common letters were {'e': 9, 'k': 5, 't': 4, 'n': 2, 'l': 2, 's': 2, 'r': 1, 'u': 1, 'i': 1, 'o': 1}
 ```
 
-``` bash
+``` powershell
 C:\...\DutchParsing>python Console.py analyze-file TextFiles/Het-Boek.txt
 there were a total of 4859 unique syllables in the text, of 761332 words.
 the 10 most common syllables were {'de': 65405, '': 33432, 'en': 31476, 'ge': 22602, 'van': 21798, 'te': 19022, 'den': 17583, 'het': 15858, 'ver': 15036, 'u': 14538}
