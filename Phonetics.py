@@ -81,6 +81,60 @@ def default_consonant_replacement(consonants):
     return switcher.get(consonants, consonants)
 
 
+def find_start_c_pronunciation(syllable, i):
+    start_con_sound = ''
+    if i > 0 and syllable.start_cons[i-1] == 's':
+        # scepter
+        pass
+    elif i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'h':
+        # ch, should not appear at the start but just in case
+        start_con_sound += 'g'
+    elif i < len(syllable.start_cons)-1 \
+            or len(syllable.vowels) > 0 and (syllable.vowels[0] in {'a', 'o', 'u'} or syllable.start_cons + syllable.vowels[0] == 'sce'):
+        # casus
+        start_con_sound += 'k'
+    else:
+        # citrus
+        start_con_sound += 's'
+
+    return start_con_sound
+
+
+def find_start_h_pronunciation(syllable, i):
+    start_con_sound = ''
+    if i > 0 and syllable.start_cons[i-1] == 'c':
+         # ch
+        pass
+    else:
+        start_con_sound += 'h'
+    return start_con_sound
+
+
+def find_start_s_pronunciation(syllable, i):
+    start_con_sound = ''
+    if i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'c' \
+            and i < len(syllable.start_cons)-2 and syllable.start_cons[i+2] == 'h':
+        if syllable.vowels + syllable.end_cons == 'e' and syllable.next_syl is None:
+            # word ending on sche like logische
+            start_con_sound += 's'
+        else:
+            # scheen
+            start_con_sound += 'sg'
+    else:
+        start_con_sound += 's'
+    return start_con_sound
+
+
+def find_start_q_pronunciation(syllable, i):
+    start_con_sound = ''
+    if syllable.vowels != '' and syllable.vowels[0] == 'u':
+        # qua = kwa
+        start_con_sound += 'kw'
+    else:
+        start_con_sound += 'k'
+    return start_con_sound
+
+
 def find_start_con_pronunciation(syllable):
     start_con_sound = ''
     if syllable.start_cons == 'tj':
@@ -92,41 +146,11 @@ def find_start_con_pronunciation(syllable):
                 # blokken = bloken
                 continue
             if i > 0 and syllable.start_cons[i] == syllable.start_cons[i-1]:
-                # appel = apel
+                # pppas = pas
                 continue
-            if syllable.start_cons[i] == 'c':
-                if i > 0 and syllable.start_cons[i-1] == 's':
-                    # scepter
-                    continue
-                elif i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'h':
-                    # ch, should not appear at the start but just in case
-                    start_con_sound += 'g'
-                elif i < len(syllable.start_cons)-1 \
-                        or len(syllable.vowels) > 0 and (syllable.vowels[0] in {'a', 'o', 'u'} or syllable.start_cons + syllable.vowels[0] == 'sce'):
-                    # casus
-                    start_con_sound += 'k'
-                else:
-                    # citrus
-                    start_con_sound += 's'
-
-            elif syllable.start_cons[i] == 's' \
-                    and i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'c' \
-                    and i < len(syllable.start_cons)-2 and syllable.start_cons[i+2] == 'h':
-                if syllable.vowels + syllable.end_cons == 'e' and syllable.next_syl is None:
-                    # word ending on sche like logische
-                    start_con_sound += 's'
-                else:
-                    # scheen
-                    start_con_sound += 'sg'
-            elif syllable.start_cons[i] == 'c' and i > 0 and syllable.start_cons[i-1] == 's':
-                # sc will have been processed at the s already
-                continue
-            elif syllable.start_cons[i] == 'q' and syllable.vowels != '' and syllable.vowels[0] == 'u':
-                # qua = kwa
-                start_con_sound += 'kw'
-            elif syllable.start_cons[i] == 'h' and i > 0 and syllable.start_cons[i-1] == 'c':
-                # ch
-                continue
+            function_name = f'find_start_{syllable.start_cons[i]}_pronunciation'
+            if function_name in letter_functions:
+                start_con_sound += letter_functions[function_name](syllable, i)
             else:
                 start_con_sound += default_consonant_replacement(syllable.start_cons[i])
     return start_con_sound
@@ -177,23 +201,74 @@ def find_open_vowel_pronunciation(syllable):
         return ending_vowel(syllable.vowels)
 
 
+def find_end_n_pronunciation(syllable, i):
+    end_con_sound = ''
+    if i+1 <= len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'g':
+        end_con_sound += 'ñ'
+    else:
+        end_con_sound += 'n'
+    return end_con_sound
+
+
+def find_end_g_pronunciation(syllable, i):
+    end_con_sound = ''
+    if i > 0 and syllable.end_cons[i-1] == 'n':
+        # ng is already processed with the n
+        pass
+    else:
+        # voiceless g at the end
+        end_con_sound += 'æ'
+    return end_con_sound
+
+
+def find_end_c_pronunciation(syllable, i):
+    end_con_sound = ''
+    if i < len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'h':
+        # ch, should not appear at the start but just in case
+        end_con_sound += 'g'
+    else:
+        # lac? not sure if always k
+        end_con_sound += 'k'
+
+    return end_con_sound
+
+
+def find_end_h_pronunciation(syllable, i):
+    end_con_sound = ''
+    if i > 0 and syllable.end_cons[i-1] == 'c':
+         # ch
+        pass
+    else:
+        end_con_sound += 'h'
+    return end_con_sound
+
+
 def find_end_con_pronunciation(syllable):
     end_con_sound = ''
     if syllable.end_cons == 'sch':
         end_con_sound = 's'
     else:
         for i in range(0, len(syllable.end_cons)):
-            if syllable.end_cons[i] == 'n' and i+1 <= len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'g':
-                end_con_sound += 'ñ'
-
-            elif syllable.end_cons[i] == 's' and i+1 < len(syllable.end_cons) and syllable.end_cons[i+1] == 'c' and i+2 < len(syllable.end_cons) and syllable.end_cons[i+2] == 'h':
-                end_con_sound += 's'
-            elif syllable.end_cons[i] == 'c' and i > 0 and syllable.end_cons[i-1] == 's':
+            if i > 0 and syllable.end_cons[i] == syllable.end_cons[i-1]:
+                # bakk = bak
                 continue
-            elif i > 0 and syllable.end_cons[i-1] == 'n' and syllable.end_cons[i] == 'g':
-                continue
-            elif syllable.end_cons[i] == 'g':
-                end_con_sound += 'æ'
+            function_name = f'find_end_{syllable.end_cons[i]}_pronunciation'
+            if function_name in letter_functions:
+                end_con_sound += letter_functions[function_name](syllable, i)
             else:
                 end_con_sound += default_consonant_replacement(syllable.end_cons[i])
     return end_con_sound
+
+
+letter_functions = {
+    'find_start_c_pronunciation': find_start_c_pronunciation,
+    'find_start_h_pronunciation': find_start_h_pronunciation,
+    'find_start_s_pronunciation': find_start_s_pronunciation,
+    'find_start_q_pronunciation': find_start_q_pronunciation,
+
+
+    'find_end_g_pronunciation': find_end_g_pronunciation,
+    'find_end_c_pronunciation': find_end_c_pronunciation,
+    'find_end_h_pronunciation': find_end_h_pronunciation,
+    'find_end_n_pronunciation': find_end_n_pronunciation
+}
