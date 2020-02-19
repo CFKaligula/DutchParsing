@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 
-from Word import Word
-import Test
+from word import Word
+import test
 
 _COMMAND_SPLIT = 'split'
 _COMMAND_PRONOUNCE = 'pronounce'

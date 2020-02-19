@@ -1,6 +1,6 @@
 import Letters
-from Syllable import Syllable
-import Phonetics
+from syllable import Syllable
+import phonetic
 '''
 TO BE IMPLEMENTED:
 * Split
@@ -10,7 +10,7 @@ TO BE IMPLEMENTED:
     * nieuw, duw, hoi, groei, leeuw (just ignore the w)
 * Rhyme inventory
     * full rhyme and only vowel rhyme 
-* Phonetics
+* phonetic
     * ieuw, duw, eeuw
     * find start pron and the find_end_pron do not copy paste, make generic func
     * change trema to ^ so ä should be â á ä
@@ -112,11 +112,11 @@ class Word:
     def initialize_pronunciation(self):
         for syllable in self.syllables:
             if syllable.start_cons:
-                self._pronunciation += Phonetics.find_start_con_pronunciation(syllable)
+                self._pronunciation += phonetic.find_start_con_pronunciation(syllable)
             if syllable.vowels:
-                self._pronunciation += Phonetics.find_vowel_pronunciation(syllable)
+                self._pronunciation += phonetic.find_vowel_pronunciation(syllable)
             if syllable.end_cons:
-                self._pronunciation += Phonetics.find_end_con_pronunciation(syllable)
+                self._pronunciation += phonetic.find_end_con_pronunciation(syllable)
 
     def pronounce_word(self):
         for syllable in self._syllables:

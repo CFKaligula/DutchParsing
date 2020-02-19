@@ -1,20 +1,20 @@
 import Letters
-from Syllable import Syllable
-import StartPronunciations
-import EndPronunciations
+from syllable import Syllable
+import start_pronunciations
+import end_pronunciations
 
 LETTER_FUNCTIONS = {
-    'find_start_c_pronunciation': StartPronunciations.find_start_c_pronunciation,
-    'find_start_h_pronunciation': StartPronunciations.find_start_h_pronunciation,
-    'find_start_j_pronunciation': StartPronunciations.find_start_j_pronunciation,
-    'find_start_s_pronunciation': StartPronunciations.find_start_s_pronunciation,
-    'find_start_q_pronunciation': StartPronunciations.find_start_q_pronunciation,
+    'find_start_c_pronunciation': start_pronunciations.find_start_c_pronunciation,
+    'find_start_h_pronunciation': start_pronunciations.find_start_h_pronunciation,
+    'find_start_j_pronunciation': start_pronunciations.find_start_j_pronunciation,
+    'find_start_s_pronunciation': start_pronunciations.find_start_s_pronunciation,
+    'find_start_q_pronunciation': start_pronunciations.find_start_q_pronunciation,
 
 
-    'find_end_g_pronunciation': EndPronunciations.find_end_g_pronunciation,
-    'find_end_c_pronunciation': EndPronunciations.find_end_c_pronunciation,
-    'find_end_h_pronunciation': EndPronunciations.find_end_h_pronunciation,
-    'find_end_n_pronunciation': EndPronunciations.find_end_n_pronunciation
+    'find_end_g_pronunciation': end_pronunciations.find_end_g_pronunciation,
+    'find_end_c_pronunciation': end_pronunciations.find_end_c_pronunciation,
+    'find_end_h_pronunciation': end_pronunciations.find_end_h_pronunciation,
+    'find_end_n_pronunciation': end_pronunciations.find_end_n_pronunciation
 }
 
 

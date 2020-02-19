@@ -1,5 +1,5 @@
 
-from Word import Word
+from word import Word
 import sys
 
 
