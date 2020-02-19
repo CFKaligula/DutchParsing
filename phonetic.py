@@ -1,4 +1,4 @@
-import Letters
+import letters
 from syllable import Syllable
 import start_pronunciations
 import end_pronunciations
@@ -67,7 +67,7 @@ def find_vowel_pronunciation(syllable):
     elif syllable.start_cons == 'c' and syllable.vowels == 'i':
         # citroen
         vowel_sound = add_accent(syllable.vowels)
-    elif syllable.vowels in Letters.VOWELS:
+    elif syllable.vowels in letters.VOWELS:
         if not syllable.end_cons:
             if syllable.next_syl is not None and syllable.next_syl.start_cons != '' and syllable.next_syl.start_cons[0] in {'r', 'l'}:
                 # if the next syllable starts with an r, some vowels are pronounced differently
@@ -94,7 +94,7 @@ def find_vowel_pronunciation(syllable):
 
 
 def find_open_vowel_pronunciation(syllable):
-    if syllable.text in {'ge', 'be', } and syllable.word.text not in Letters.PREPOSITION_EXCEPTIONS:
+    if syllable.text in {'ge', 'be', } and syllable.word.text not in letters.PREPOSITION_EXCEPTIONS:
         return '0'
     elif syllable.next_syl:
         return add_accent(syllable.vowels)

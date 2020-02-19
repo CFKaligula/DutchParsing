@@ -1,5 +1,5 @@
 
-import Letters
+import letters
 import time
 from playsound import playsound
 
@@ -51,7 +51,7 @@ class Syllable:
         # finds the consonant and vowel groups in the syllable
         found_vowel = False
         for letter in input_text:
-            if letter in Letters.CONSONANTS:
+            if letter in letters.CONSONANTS:
                 if not found_vowel:
                     self._start_cons += letter
                 else:
@@ -63,7 +63,7 @@ class Syllable:
     def fix_start_cons(self):
         if self._prev_syl.text and not (self._start_cons + self._vowels == 'tje'):
             # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
-            while self._start_cons not in (Letters.VALID_CONSONANT_COMBINATIONS | Letters.CONSONANTS):
+            while self._start_cons not in (letters.VALID_CONSONANT_COMBINATIONS | letters.CONSONANTS):
                 # print(f'start cons {self._start_cons} is not a valid consonant combination')
                 self._prev_syl._end_cons += self._start_cons[0]
                 self._start_cons = self._start_cons[1:]
@@ -106,13 +106,13 @@ class Syllable:
             self._vowels += vowel
         elif (self.start_cons + self.vowels == 'qu'):
             self._vowels += vowel
-        elif (self.vowels + vowel) in Letters.TRIPTHONGS:
+        elif (self.vowels + vowel) in letters.TRIPTHONGS:
             # find a tripthong
             self._vowels += vowel
-        elif (self.vowels + vowel + next_letter) in Letters.TRIPTHONGS:
+        elif (self.vowels + vowel + next_letter) in letters.TRIPTHONGS:
             # foresee a tripthong
             self._vowels += vowel
-        elif (self.vowels + vowel) in Letters.DIPTHONGS:
+        elif (self.vowels + vowel) in letters.DIPTHONGS:
             # since we won't make a tripthong, we know we can stop the syllable here
             self._vowels += vowel
         else:
@@ -129,7 +129,7 @@ class Syllable:
             self.add_vowel('y', '')
 
     def remove_accents(self):
-        self._vowels = ''.join(list(map(Letters.remove_accent, self._vowels)))
+        self._vowels = ''.join(list(map(letters.remove_accent, self._vowels)))
 
     def display_cons_and_vowels(self):
         print(f'The cons and vowels for {self.text} are:')
