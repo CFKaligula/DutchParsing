@@ -11,9 +11,10 @@
 
  Eventually there will be need for a word list of some sort, as there is no way to know if the syllable 'be' should be pronounced as 'bay' for 'bezem' or  'buh' for 'bezet.
 
-## To-do
+## Requirements
 
-For English loanwords, y should be a vowel if there are already starting consonants
+F or the pronunciation you need to install the [playsound](https://pypi.org/project/playsound/) library:
+Can be done with the command `pip install playsound`
 
 ## How to Use
 
@@ -58,7 +59,3 @@ the 10 most common syllables were {'de': 65405, '': 33432, 'en': 31476, 'ge': 22
 ```
 
 You can also do multiple inputs by enclosing the inputs with double quotation marks.
-
-## Copying
-
-Be free to copy any of the code here, it is just a fun project.

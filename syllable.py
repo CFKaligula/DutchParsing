@@ -1,7 +1,7 @@
 
+from playsound import playsound
 import letter_dictionaries
 import time
-from playsound import playsound
 
 
 class Syllable:
