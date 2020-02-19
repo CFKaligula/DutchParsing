@@ -67,6 +67,7 @@ oeu = uu (long u)
 
 ### New Symbols
 
+* ß = sj (alt-gr + s)
 * ñ = nj (alt-gr + n)
 * µ = ng (alt-gr + m)
 * g = g, voiced

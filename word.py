@@ -12,11 +12,12 @@ TO BE IMPLEMENTED:
     * full rhyme and only vowel rhyme 
 * phonetic
     * ieuw, duw, eeuw
-    * find start pron and the find_end_pron do not copy paste, make generic func
     * change trema to ^ so ä should be â á ä
     * ontdek = ondek ( maybe not?)
     * blokken = bloken 
-    * motie = mótsí? but still 'tieten' you can atleast check motie/moties so when its the last syllable
+    * motie = mótsí also when not last syllable
+    * jasje maybe jaße? not sure so implement ,ß for end_con s
+    * different r's 
 '''
 
 

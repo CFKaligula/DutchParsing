@@ -32,6 +32,9 @@ def find_start_j_pronunciation(syllable, i):
     if syllable.prev_syl.end_cons != '' and syllable.prev_syl.end_cons[-1] == 'n':
          # nj as in oranje, already handled with the n
         pass
+    elif i > 0 and syllable.start_cons[i-1] == 's':
+        # sjaal = ßaal
+        pass
     else:
         start_con_sound += 'j'
     return start_con_sound
@@ -47,8 +50,24 @@ def find_start_s_pronunciation(syllable, i):
         else:
             # scheen
             start_con_sound += 'sg'
+    elif i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'j':
+        start_con_sound += 'ß'
     else:
         start_con_sound += 's'
+    return start_con_sound
+
+
+def find_start_t_pronunciation(syllable, i):
+    start_con_sound = ''
+    if syllable.start_cons + syllable.vowels == 'tie' and syllable.next_syl is None:
+        if syllable.prev_syl.end_cons != '' and syllable.prev_syl.end_cons == 'c':
+            # perfectie
+            start_con_sound += 's'
+        else:
+            # motie = mótsí
+            start_con_sound += 'ts'
+    else:
+        start_con_sound += 't'
     return start_con_sound
 
 

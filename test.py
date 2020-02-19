@@ -1,6 +1,5 @@
 
 from word import Word
-import sys
 
 
 def split_tester():
@@ -32,9 +31,11 @@ def split_tester():
 
     }
     for test in test_dict:
-        print(test, end=",") if Word(test).get_split_word(
-        ) == test_dict[test] else print(f'\nFAILED {test}, GOT "{Word(test).pronunciation}" INSTEAD OF "{test_dict[test]}"')
-
+        if Word(test).get_split_word() == test_dict[test]:
+            print(test, end=",")
+        else:
+            print(f'\nFAILED {test}, GOT "{Word(test).get_split_word()}"' +
+                  f'INSTEAD OF "{test_dict[test]}".')
     print('\n***.***.***Done with split tests***.***.***')
 
 
@@ -70,10 +71,18 @@ def phonetic_tester():
         'citroen': 'sítrön',
         'appel': 'apel',
         'blokken': 'blok0n',
-        'oranje': 'oorañ0'
+        'oranje': 'oorañ0',
+        'sjaal': 'ßá0l',
+        'motie': 'mótsí',
+        'moties': 'mótsís',
+        'perfectie': 'perfeksí',
+        'tieten': 'tít0n'
     }
     for test in test_dict:
-        print(test, end=",") if Word(
-            test).pronunciation == test_dict[test] else print(f'\nFAILED {test}, GOT "{Word(test).pronunciation}" INSTEAD OF "{test_dict[test]}".')
+        if Word(test).pronunciation == test_dict[test]:
+            print(test, end=",")
+        else:
+            print(f'\nFAILED {test}, GOT "{Word(test).pronunciation}"' +
+                  f'INSTEAD OF "{test_dict[test]}".')
 
     print('\n***.***.***Done with phonetic tests***.***.***')

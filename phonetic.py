@@ -8,6 +8,7 @@ LETTER_FUNCTIONS = {
     'find_start_h_pronunciation': start_pronunciations.find_start_h_pronunciation,
     'find_start_j_pronunciation': start_pronunciations.find_start_j_pronunciation,
     'find_start_s_pronunciation': start_pronunciations.find_start_s_pronunciation,
+    'find_start_t_pronunciation': start_pronunciations.find_start_t_pronunciation,
     'find_start_q_pronunciation': start_pronunciations.find_start_q_pronunciation,
 
 
