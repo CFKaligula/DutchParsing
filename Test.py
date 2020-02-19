@@ -49,7 +49,7 @@ def phonetic_tester():
         'baas': 'bás',
         'lijk': 'lïk',
         'bijl': 'beel',
-        'lang': 'lañ',
+        'lang': 'laµ',
         'chronische': 'grónís0',
         'chronisch': 'grónís',
         'scepter': 'sept0r',
@@ -69,7 +69,8 @@ def phonetic_tester():
         'quasi': 'kwásí',
         'citroen': 'sítrön',
         'appel': 'apel',
-        'blokken': 'blok0n'
+        'blokken': 'blok0n',
+        'oranje': 'oorañ0'
     }
     for test in test_dict:
         print(test, end=",") if Word(

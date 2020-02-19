@@ -67,7 +67,8 @@ oeu = uu (long u)
 
 ### New Symbols
 
-* ñ = ng (alt-gr + n)
+* ñ = nj (alt-gr + n)
+* µ = ng (alt-gr + m)
 * g = g, voiced
 * æ = g, unvoiced (altgr + z it looks like an x which is the ipa symbol)
 * r  = r, flap

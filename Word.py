@@ -7,17 +7,16 @@ TO BE IMPLEMENTED:
     * ijs-yog-hurt but ba-by-opera, probably impossible. can do something for analyse where you see y has no vowels around it so it must be the vowel.
 * Sound
     * sound files for consonants and some dipthongs
-    * sche at end of word (technisch) is pronounced as s
     * nieuw, duw, hoi, groei, leeuw (just ignore the w)
-    * ontdek = ondek ( maybe not?)
-    * blokken = bloken 
 * Rhyme inventory
     * full rhyme and only vowel rhyme 
 * Phonetics
     * ieuw, duw, eeuw
-    * qu pronounced as kw
     * find start pron and the find_end_pron do not copy paste, make generic func
     * change trema to ^ so ä should be â á ä
+    * ontdek = ondek ( maybe not?)
+    * blokken = bloken 
+    * motie = mótsí? but still 'tieten' you can atleast check motie/moties so when its the last syllable
 '''
 
 
