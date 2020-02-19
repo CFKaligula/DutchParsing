@@ -1,4 +1,4 @@
-import letters
+import letter_dictionaries
 from syllable import Syllable
 import phonetic
 '''
@@ -53,7 +53,7 @@ class Word:
         # returns the word split into syllables with dashes
         result = ''
         for syllable in self._syllables:
-            result += syllable.text + letters.BREAK_SYMBOL
+            result += syllable.text + letter_dictionaries.BREAK_SYMBOL
         result = result[:-1]    # we remove the last break symbol
         return result
 
@@ -73,7 +73,7 @@ class Word:
                 index += 1
                 break
 
-            elif self.text[index] in letters.CONSONANTS:
+            elif self.text[index] in letter_dictionaries.CONSONANTS:
                 if self.text[index] == 'y' and index == self.length-1:
                     if len(syl.end_cons) > 0:
                         index = syl.fix_end_cons(index)
@@ -82,7 +82,7 @@ class Word:
                         syl.add_y()
                 else:
                     syl.add_cons(self.text[index])
-            elif self.text[index] in letters.VOWELS:
+            elif self.text[index] in letter_dictionaries.VOWELS:
                 if len(syl.end_cons) > 0:
                     index = syl.fix_end_cons(index)
                     break
@@ -90,7 +90,7 @@ class Word:
                     break_bool = syl.add_vowel(self.text[index], next_let)
                     if break_bool:
                         break
-            elif self.text[index] in letters.VOWELS_WITH_ACCENTS:
+            elif self.text[index] in letter_dictionaries.VOWELS_WITH_ACCENTS:
                 if len(syl.vowels) == 0:
                     break_bool = syl.add_vowel(self.text[index], next_let)
                     if break_bool:
@@ -101,7 +101,7 @@ class Word:
             else:
                 # print(f'"{self.text[index]}" is not a letter.')
                 pass
-        if syl.vowels in letters.VOWELS_WITH_ACCENTS:
+        if syl.vowels in letter_dictionaries.VOWELS_WITH_ACCENTS:
             #print(f' The syllable contains an accent, {syl.vowels}.')
             syl.remove_accents()
         # syl.display_cons_and_vowels()

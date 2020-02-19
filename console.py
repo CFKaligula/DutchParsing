@@ -12,8 +12,8 @@ _COMMAND_PHONETIC = 'phonetic'
 
 
 def test_parser():
-    Test.phonetic_tester()
-    Test.split_tester()
+    test.phonetic_tester()
+    test.split_tester()
 
 
 def analyze(input_sentence):
@@ -42,11 +42,11 @@ def analyze(input_sentence):
         letter_analyze_dict.items(), key=lambda item: item[1], reverse=True)}
     print(
         f'there were a total of {len(analyze_dict)} unique syllables in the text, of {len(words)} words and {syllable_count} total syllables.')
-    print(f'there were a total of {letter_count} letters.')
+    print(f'there were a total of {letter_count} letter_dictionaries.')
     top10 = {key: value for key, value in list(sorted_dict.items())[0:10]}
     print(f'the 10 most common syllables were {top10}')
-    top10letters = {key: value for key, value in list(letter_sorted_dict.items())[0:10]}
-    print(f'the 10 most common letters were {top10letters}')
+    top10letter_dictionaries = {key: value for key, value in list(letter_sorted_dict.items())[0:10]}
+    print(f'the 10 most common letter_dictionaries were {top10letter_dictionaries}')
 
 
 def _add_parser_category_split(subparsers):
