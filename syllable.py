@@ -141,7 +141,7 @@ class Syllable:
         print(f'pronounceing syllable {self.text}')
         # playsound('soundFiles/consonants/processed/d1.mp3')
         for letter in self._start_cons:
-            if self._start_cons.index(letter) == 0 and self._prev_syl.end_cons and self._prev_syl.end_cons[-1] == self._start_cons[0]:
+            if self._start_cons.index(letter) == 0 and self._prev_syl.end_cons[-1:] == self._start_cons[0]:
                 print('skipping first cons as it is the same as previous ending cons')
             else:
                 playsound(f'soundFiles/consonants/processed/d.mp3')

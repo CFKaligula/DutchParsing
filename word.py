@@ -14,10 +14,12 @@ TO BE IMPLEMENTED:
     * ieuw, duw, eeuw
     * change trema to ^ so ä should be â á ä
     * ontdek = ondek ( maybe not?)
-    * blokken = bloken 
     * motie = mótsí also when not last syllable
     * jasje maybe jaße? not sure so implement ,ß for end_con s
     * different r's 
+    * d,b,z,v at the end should be t,p,s,f
+    * dommeriken = domm0riken so fix both e and i, same volkeren, kalveren shouldn't be volkiiren
+    * maybe make previous_letter() and next_letter() functions so you don't have to do i>0 and end_cons[i-1] everytime
 '''
 
 
@@ -25,7 +27,7 @@ class Word:
     def __init__(self, text):
         self._text = text.lower()
         self._length = len(text)
-        self._syllables = self.initialize_syllables(0, [Syllable('')])
+        self._syllables = self.initialize_syllables(0, [])
         self._pronunciation = ''
         self.initialize_pronunciation()
 
@@ -45,11 +47,6 @@ class Word:
     def pronunciation(self):
         return self._pronunciation
 
-    def display_syllable_list(self):
-        # prints a list with the syllables
-        syllable_list = [syl.text for syl in self._syllables]
-        print(syllable_list)
-
     def get_split_word(self):
         # returns the word split into syllables with dashes
         result = ''
@@ -59,12 +56,17 @@ class Word:
         return result
 
     def initialize_syllables(self,  start, syllable_list):
-        syl = Syllable(prev_syl=syllable_list[-1], word=self)
-
+        # Check if we are done recursing
         if start >= self.length:
             for i in range(0, len(syllable_list)-1):
                 syllable_list[i]._next_syl = syllable_list[i+1]
-            return syllable_list[1:]
+            return syllable_list
+        # Create a syllable
+        if len(syllable_list) == 0:
+            syl = Syllable(prev_syl=Syllable(''), word=self)
+        else:
+            syl = Syllable(prev_syl=syllable_list[-1], word=self)
+        # Loop over the word to create the syllable
         for index in range(start, self._length+1):
             if index >= self._length:
                 break

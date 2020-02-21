@@ -1,22 +1,7 @@
 import letter_dictionaries
 from syllable import Syllable
-import start_pronunciations
-import end_pronunciations
-
-LETTER_FUNCTIONS = {
-    'find_start_c_pronunciation': start_pronunciations.find_start_c_pronunciation,
-    'find_start_h_pronunciation': start_pronunciations.find_start_h_pronunciation,
-    'find_start_j_pronunciation': start_pronunciations.find_start_j_pronunciation,
-    'find_start_s_pronunciation': start_pronunciations.find_start_s_pronunciation,
-    'find_start_t_pronunciation': start_pronunciations.find_start_t_pronunciation,
-    'find_start_q_pronunciation': start_pronunciations.find_start_q_pronunciation,
-
-
-    'find_end_g_pronunciation': end_pronunciations.find_end_g_pronunciation,
-    'find_end_c_pronunciation': end_pronunciations.find_end_c_pronunciation,
-    'find_end_h_pronunciation': end_pronunciations.find_end_h_pronunciation,
-    'find_end_n_pronunciation': end_pronunciations.find_end_n_pronunciation
-}
+from start_pronunciations import StartPronunciations
+from end_pronunciations import EndPronunciations
 
 
 def find_start_con_pronunciation(syllable):
@@ -26,17 +11,16 @@ def find_start_con_pronunciation(syllable):
         start_con_sound = 'ð'
     else:
         for i in range(0, len(syllable.start_cons)):
+
             if i == 0 and syllable.start_cons[i] == syllable.prev_syl.end_cons[-1:]:
                 # blokken = bloken
                 continue
-            if i > 0 and syllable.start_cons[i] == syllable.start_cons[i-1]:
-                # pppas = pas
-                continue
             function_name = f'find_start_{syllable.start_cons[i]}_pronunciation'
-            if function_name in LETTER_FUNCTIONS:
-                start_con_sound += LETTER_FUNCTIONS[function_name](syllable, i)
-            else:
-                start_con_sound += default_consonant_replacement(syllable.start_cons[i])
+            retrieved_sound = getattr(StartPronunciations, function_name,
+                                      StartPronunciations.default_start_consonant_replacement)(syllable, i)
+            if (start_con_sound[-1:] != retrieved_sound) \
+                    and find_end_con_pronunciation(syllable.prev_syl)[-1:] != retrieved_sound:
+                start_con_sound += retrieved_sound
     return start_con_sound
 
 
@@ -47,14 +31,11 @@ def find_end_con_pronunciation(syllable):
         end_con_sound = 's'
     else:
         for i in range(0, len(syllable.end_cons)):
-            if i > 0 and syllable.end_cons[i] == syllable.end_cons[i-1]:
-                # bakk = bak
-                continue
             function_name = f'find_end_{syllable.end_cons[i]}_pronunciation'
-            if function_name in LETTER_FUNCTIONS:
-                end_con_sound += LETTER_FUNCTIONS[function_name](syllable, i)
-            else:
-                end_con_sound += default_consonant_replacement(syllable.end_cons[i])
+            retrieved_sound = getattr(EndPronunciations, function_name,
+                                      EndPronunciations.default_end_consonant_replacement)(syllable, i)
+            if end_con_sound[-1:] != retrieved_sound:
+                end_con_sound += retrieved_sound
     return end_con_sound
 
 
@@ -168,15 +149,7 @@ def r_or_l_phonetic_symbol(dipthong):
 def next_syl_r_or_l(vowel):
     switcher = {
         'o': 'oo',  # voren
-        'i': 'íí',  # gieren hypothetically
+        'i': 'í',  # gieren hypothetically
         'e': 'ii'  # scheren
     }
     return switcher.get(vowel, add_accent(vowel))
-
-
-def default_consonant_replacement(consonants):
-    switcher = {
-        'y': 'j',
-        'x': 'ks',
-    }
-    return switcher.get(consonants, consonants)
