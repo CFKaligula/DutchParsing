@@ -16,7 +16,10 @@ class EndPronunciations:
     @staticmethod
     def find_end_c_pronunciation(syllable, i):
         end_con_sound = ''
-        if i < len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'h':
+        if i > 0 and syllable.end_cons[i-1] == 's':
+            # scepter, legendarisch
+            pass
+        elif i < len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'h':
             # ch, should not appear at the start but just in case
             end_con_sound += 'g'
         else:
@@ -51,7 +54,7 @@ class EndPronunciations:
         end_con_sound = ''
         if i+1 <= len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'g':
             end_con_sound += 'µ'
-        elif syllable.next_syl is not None and syllable.next_syl.start_cons[0] == 'j':
+        elif syllable.next_syl is not None and len(syllable.next_syl.start_cons) > 0 and syllable.next_syl.start_cons[0] == 'j':
             end_con_sound += 'ñ'
         else:
             end_con_sound += 'n'

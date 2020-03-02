@@ -13,7 +13,7 @@ class StartPronunciations:
     def find_start_c_pronunciation(syllable, i):
         start_con_sound = ''
         if i > 0 and syllable.start_cons[i-1] == 's':
-            # scepter
+            # scepter, legendarische
             pass
         elif i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'h':
             # ch, should not appear at the start but just in case

@@ -18,6 +18,8 @@ Can be done with the command `pip install playsound`
 
 ## How to Use
 
+### Splitting words in syllables
+
 You can easily interact with the tool via the Console, with the command `split` you can get a word split up via the way explained above.
 
 ``` powershell
@@ -25,6 +27,8 @@ $WORD= lopen # any word you want to input
 C:\...\DutchParsing>python Console.py split $WORD
 lo-pen
 ```
+
+### Getting the pronunciation of a word
 
 You can input a word together with the command `phonetic` to the console script and it will give a phonetic translation of the word using this program's system,
 for info about the pronunciation of each symbol see the PhoneticSystem file:
@@ -34,6 +38,34 @@ $WORD= lopen # any word you want to input
 C:\...\DutchParsing>python Console.py phonetic $WORD
 lóp0n
 ```
+
+### Finding Rhyme words for a word
+
+You can find all the words that rhyme with a certain words. You can either find words that rhyme fully or words that only have the same vowels. If no rhyme type is specified it does full rhyme by default. Use the following command:
+
+``` powershell
+$WORD= lopen # any word you want to input
+$TYPE= full # should be either 'full' or 'vowels'
+C:\...\DutchParsing>python Console.py rhyme -t $TYPE $WORD
+2020-03-02 21:58:14,253 - [INFO]  Finding words that rhyme with: óp0n
+bekopen
+bezopen
+dopen
+dropen
+hopen
+knopen
+kopen
+kropen
+lopen
+nopen
+open
+slopen
+stropen
+tropen
+zopen
+```
+
+### Running tests
 
 You can test the tool by running the `test` command which will run a bunch of tests on the splitting to see if they still work correctly.
 

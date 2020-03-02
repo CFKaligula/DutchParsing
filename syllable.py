@@ -1,7 +1,8 @@
-
 from playsound import playsound
-import letter_dictionaries
 import time
+import logging
+
+import letter_dictionaries
 
 
 class Syllable:
@@ -64,7 +65,8 @@ class Syllable:
         if self._prev_syl.text and not (self._start_cons + self._vowels == 'tje'):
             # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
             while self._start_cons not in (letter_dictionaries.VALID_CONSONANT_COMBINATIONS | letter_dictionaries.CONSONANTS):
-                # print(f'start cons {self._start_cons} is not a valid consonant combination')
+                logging.debug(
+                    f'start cons {self._start_cons} is not a valid consonant combination')
                 self._prev_syl._end_cons += self._start_cons[0]
                 self._start_cons = self._start_cons[1:]
 
@@ -132,17 +134,17 @@ class Syllable:
         self._vowels = ''.join(list(map(letter_dictionaries.remove_accent, self._vowels)))
 
     def display_cons_and_vowels(self):
-        print(f'The cons and vowels for {self.text} are:')
-        print(f'start_cons: {self._start_cons}')
-        print(f'vowels: {self._vowels}')
-        print(f'end_cons: {self._end_cons}')
+        logging.info(f'The cons and vowels for {self.text} are:')
+        logging.info(f'start_cons: {self._start_cons}')
+        logging.info(f'vowels: {self._vowels}')
+        logging.info(f'end_cons: {self._end_cons}')
 
     def pronounce_syllable(self):
-        print(f'pronounceing syllable {self.text}')
+        logging.debug(f'pronounceing syllable {self.text}')
         # playsound('soundFiles/consonants/processed/d1.mp3')
         for letter in self._start_cons:
             if self._start_cons.index(letter) == 0 and self._prev_syl.end_cons[-1:] == self._start_cons[0]:
-                print('skipping first cons as it is the same as previous ending cons')
+                logging.debug('skipping first cons as it is the same as previous ending cons')
             else:
                 playsound(f'soundFiles/consonants/processed/d.mp3')
         # time.sleep(0.08)
@@ -150,7 +152,7 @@ class Syllable:
             self.pronounce_vowel()
 
         for letter in self._end_cons:
-            print('play end')
+            logging.debug('play end')
             playsound(f'soundFiles/consonants/processed/{letter}.mp3')
         time.sleep(0.1)
 
@@ -179,6 +181,6 @@ class Syllable:
         if file_name == None:
             file_name = self._vowels
         vowel_file_path = f'soundFiles/vowels/processed/{file_name}.mp3'
-        print(f'playing {vowel_file_path} ', )
+        logging.debug(f'playing {vowel_file_path} ', )
         playsound(vowel_file_path)
         # time.sleep(0.1)

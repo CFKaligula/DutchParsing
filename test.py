@@ -1,5 +1,5 @@
-
 from word import Word
+import logging
 
 
 def split_tester():
@@ -32,11 +32,11 @@ def split_tester():
     }
     for test in test_dict:
         if Word(test).get_split_word() == test_dict[test]:
-            print(test, end=",")
+            logging.debug(f'Test for splitting "{test}"')
         else:
-            print(f'\nFAILED {test}, GOT "{Word(test).get_split_word()}"' +
-                  f'INSTEAD OF "{test_dict[test]}".')
-    print('\n***.***.***Done with split tests***.***.***')
+            logging.error(f'FAILED {test}, GOT "{Word(test).get_split_word()}"' +
+                          f'INSTEAD OF "{test_dict[test]}".')
+    logging.info('***.***.***Done with split tests***.***.***')
 
 
 def phonetic_tester():
@@ -79,12 +79,14 @@ def phonetic_tester():
         'tieten': 'tít0n',
         'wordt': 'wort',
         'wondtas': 'wontas',
+        'motie': 'mótsí',
+        'moties': 'mótsís'
     }
     for test in test_dict:
         if Word(test).pronunciation == test_dict[test]:
-            print(test, end=",")
+            logging.debug(f'Test for phonetic "{test}"')
         else:
-            print(f'\nFAILED {test}, GOT "{Word(test).pronunciation}"' +
-                  f'INSTEAD OF "{test_dict[test]}".')
+            logging.error(f'FAILED {test}, GOT "{Word(test).pronunciation}"' +
+                          f'INSTEAD OF "{test_dict[test]}".')
 
-    print('\n***.***.***Done with phonetic tests***.***.***')
+    logging.info('***.***.***Done with phonetic tests***.***.***')

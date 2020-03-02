@@ -1,7 +1,9 @@
+import logging
+
 import letter_dictionaries
 from syllable import Syllable
-from start_pronunciations import StartPronunciations
-from end_pronunciations import EndPronunciations
+from phonetic_code.start_pronunciations import StartPronunciations
+from phonetic_code.end_pronunciations import EndPronunciations
 
 
 def find_start_con_pronunciation(syllable):
@@ -26,16 +28,13 @@ def find_start_con_pronunciation(syllable):
 
 def find_end_con_pronunciation(syllable):
     end_con_sound = ''
-    if syllable.end_cons == 'sch':
-        # logisch
-        end_con_sound = 's'
-    else:
-        for i in range(0, len(syllable.end_cons)):
-            function_name = f'find_end_{syllable.end_cons[i]}_pronunciation'
-            retrieved_sound = getattr(EndPronunciations, function_name,
-                                      EndPronunciations.default_end_consonant_replacement)(syllable, i)
-            if end_con_sound[-1:] != retrieved_sound:
-                end_con_sound += retrieved_sound
+
+    for i in range(0, len(syllable.end_cons)):
+        function_name = f'find_end_{syllable.end_cons[i]}_pronunciation'
+        retrieved_sound = getattr(EndPronunciations, function_name,
+                                  EndPronunciations.default_end_consonant_replacement)(syllable, i)
+        if end_con_sound[-1:] != retrieved_sound:
+            end_con_sound += retrieved_sound
     return end_con_sound
 
 
@@ -71,7 +70,7 @@ def find_vowel_pronunciation(syllable):
 
     else:
         vowel_sound = default_phonetic_symbol(syllable.vowels)
-    # print(f'Vowel sound for vowel {syllable.vowels}: {vowel_sound}')
+    logging.debug(f'Vowel sound for vowel {syllable.vowels}: {vowel_sound}')
     return vowel_sound
 
 
