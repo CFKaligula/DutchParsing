@@ -13,7 +13,7 @@ _COMMAND_ANALYZE = 'analyze'
 _COMMAND_ANALYZE_FILE = 'analyze-file'
 _COMMAND_PHONETIC = 'phonetic'
 _COMMAND_RHYME = 'rhyme'
-_RHYME_DICTIONARY_PATH = os.path.join('text_files', 'Dutch_Word_List.txt')
+_RHYME_DICTIONARY_PATH = os.path.join('text_files', 'basiswoorden.txt')
 
 
 def test_parser():
@@ -65,13 +65,18 @@ def find_rhyme(input_word, rhyme_type):
     input_word = Word(input_word)
     logging.debug(
         f'Finding words that {rhyme_type} rhyme with: {RHYME_FUNCTIONS[rhyme_type](input_word)}')
-    logging.info(f'Words that {rhyme_type} rhyme with "{input_word.text}":')
+    logging.info(f'Finding words that {rhyme_type} rhyme with "{input_word.text}"...')
 
     dictionary = open(_RHYME_DICTIONARY_PATH).read().split()
     rhyme_words = []
     for dictionary_entry in dictionary:
         word = Word(dictionary_entry)
         if RHYME_FUNCTIONS[rhyme_type](word) == RHYME_FUNCTIONS[rhyme_type](input_word):
+            if rhyme_type == 'vowel' and len(word.syllables) < len(RHYME_FUNCTIONS[rhyme_type](word)):
+                # haar becomes ha0r phonetically, so for vowel rhyme it will rhyme with varen
+                # so we check that there are atleast as many syllables as vowels so haar doesn't rhyme with varen anymore
+                continue
+
             rhyme_words.append(word)
     for rhyme_word in rhyme_words:
         print(rhyme_word.text)
