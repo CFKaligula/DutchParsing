@@ -94,7 +94,7 @@ class Syllable:
 
     def add_cons(self, cons):
         if self.vowels is not '':
-            if self.vowels + cons == 'ij':
+            if self.vowels + cons == 'ij' and len(self.end_cons) == 0:
                 # special check for dipthong 'ij'
                 self._vowels += cons
             else:
