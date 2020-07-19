@@ -45,7 +45,7 @@ You can find all the words that rhyme with a certain words. You can either find 
 
 ``` powershell
 $WORD= lopen # any word you want to input
-$TYPE= full # should be either 'full' or 'vowels'
+$TYPE= full # should be either 'full' or 'vowel'
 C:\...\DutchParsing>python Console.py rhyme -t $TYPE $WORD
 2020-03-02 21:58:14,253 - [INFO]  Finding words that rhyme with: óp0n
 bekopen

@@ -5,6 +5,7 @@ from syllable import Syllable
 from phonetic_code import phonetic
 
 '''
+error: flikje  rhymes with zeiden...
 TO BE IMPLEMENTED:
 * Programming:
     * logger still isnt imported via __init__.py have to do it via console

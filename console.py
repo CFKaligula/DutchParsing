@@ -181,7 +181,7 @@ def _parse_arguments():
         input_words = args.input.split()
         for input_word in input_words:
             word = Word(input_word)
-            logging.info(word.get_split_word(), end=" ")
+            print(word.get_split_word(), end=" ")
 
     elif args.command == _COMMAND_PRONOUNCE:
         input_words = args.input.split()
@@ -193,7 +193,7 @@ def _parse_arguments():
         input_words = args.input.split()
         for input_word in input_words:
             word = Word(input_word)
-            logging.info(word.pronunciation, end=" ")
+            print(word.pronunciation, end=" ")
 
     elif args.command == _COMMAND_ANALYZE:
         analyze(args.input)
