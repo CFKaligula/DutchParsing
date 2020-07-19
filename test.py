@@ -80,7 +80,7 @@ def phonetic_tester():
         'wordt': 'wort',
         'wondtas': 'wontas',
         'motie': 'mótsí',
-        'moties': 'mótsís'
+        'moties': 'mótsís',
     }
     for test in test_dict:
         if Word(test).pronunciation == test_dict[test]:

@@ -119,19 +119,6 @@ class Word:
         syllable_list.append(syl)
         return self.initialize_syllables(index, syllable_list)
 
-    def initialize_pronunciation(self):
-        for syllable in self.syllables:
-            if syllable.start_cons:
-                self._pronunciation += phonetic.find_start_con_pronunciation(syllable)
-            if syllable.vowels:
-                self._pronunciation += phonetic.find_vowel_pronunciation(syllable)
-            if syllable.end_cons:
-                self._pronunciation += phonetic.find_end_con_pronunciation(syllable)
-
-    def pronounce_word(self):
-        for syllable in self._syllables:
-            syllable.pronounce_syllable()
-
     def get_phonetic_vowels(self):
         vowels = ''
         for letter in self._pronunciation:
