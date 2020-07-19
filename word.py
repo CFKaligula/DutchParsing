@@ -24,7 +24,7 @@ TO BE IMPLEMENTED:
     * change trema to ^ so ä should be â á ä
     * ontdek = ondek ( maybe not?) (then also onbedoeld = ombedoeld), anker = angker, research all these combinations
     * jasje maybe jaße? not sure so implement ,ß for end_con s
-    * different r's 
+    * different r's
     * dommeriken = domm0riken so fix both e and i, same volkeren, kalveren shouldn't be volkiiren
     * maybe make previous_letter() and next_letter() functions so you don't have to do i>0 and end_cons[i-1] everytime
 '''
@@ -36,7 +36,7 @@ class Word:
         self._length = len(text)
         self._syllables = self.initialize_syllables(0, [])
         self._pronunciation = ''
-        self.initialize_pronunciation()
+        self.initialize_phonetisation()
 
     @property
     def text(self):
@@ -92,6 +92,7 @@ class Word:
                         syl.add_y()
                 else:
                     syl.add_cons(self.text[index])
+
             elif self.text[index] in letter_dictionaries.VOWELS:
                 if len(syl.end_cons) > 0:
                     index = syl.fix_end_cons(index)
@@ -100,6 +101,7 @@ class Word:
                     break_bool = syl.add_vowel(self.text[index], next_let)
                     if break_bool:
                         break
+
             elif self.text[index] in letter_dictionaries.VOWELS_WITH_ACCENTS:
                 if len(syl.vowels) == 0:
                     break_bool = syl.add_vowel(self.text[index], next_let)
@@ -118,6 +120,15 @@ class Word:
         syl.fix_start_cons()
         syllable_list.append(syl)
         return self.initialize_syllables(index, syllable_list)
+
+    def initialize_phonetisation(self):
+        for syllable in self.syllables:
+            if syllable.start_cons:
+                self._pronunciation += phonetic.find_start_con_pronunciation(syllable)
+            if syllable.vowels:
+                self._pronunciation += phonetic.find_vowel_pronunciation(syllable)
+            if syllable.end_cons:
+                self._pronunciation += phonetic.find_end_con_pronunciation(syllable)
 
     def get_phonetic_vowels(self):
         vowels = ''

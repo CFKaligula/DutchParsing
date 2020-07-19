@@ -81,6 +81,8 @@ def phonetic_tester():
         'wondtas': 'wontas',
         'motie': 'mótsí',
         'moties': 'mótsís',
+        'flikje': 'flikj0',
+        'zeiden': 'zïd0n'
     }
     for test in test_dict:
         if Word(test).pronunciation == test_dict[test]:

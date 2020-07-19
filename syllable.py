@@ -71,6 +71,7 @@ class Syllable:
                 self._start_cons = self._start_cons[1:]
 
     def fix_end_cons(self, index):
+        print('fix end cons:', self.end_cons)
         if len(self.end_cons) == 1 and self.end_cons != 'x':
             # if there is only 1 ending consonant the cons should go to the next syllable
             # except if the end_cons == x, as taxi is pronounced tax-i not ta-xi
@@ -94,7 +95,7 @@ class Syllable:
 
     def add_cons(self, cons):
         if self.vowels is not '':
-            if self.vowels + cons == 'ij':
+            if self.vowels + cons == 'ij' and len(self.end_cons) == 0:
                 # special check for dipthong 'ij'
                 self._vowels += cons
             else:
