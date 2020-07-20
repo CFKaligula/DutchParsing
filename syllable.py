@@ -1,5 +1,3 @@
-from playsound import playsound
-import time
 import logging
 
 import letter_dictionaries
@@ -133,9 +131,3 @@ class Syllable:
 
     def remove_accents(self):
         self._vowels = ''.join(list(map(letter_dictionaries.remove_accent, self._vowels)))
-
-    def display_cons_and_vowels(self):
-        logging.info(f'The cons and vowels for {self.text} are:')
-        logging.info(f'start_cons: {self._start_cons}')
-        logging.info(f'vowels: {self._vowels}')
-        logging.info(f'end_cons: {self._end_cons}')
