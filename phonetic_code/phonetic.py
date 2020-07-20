@@ -120,6 +120,7 @@ def default_phonetic_symbol(dipthong):
         'ai': 'A',
         'oi': 'O',
         'aai': 'Á',
+        'eau': 'ó',
         'ooi': 'Ó',
         'oei': 'Ö',
         'oeu': 'uu',
