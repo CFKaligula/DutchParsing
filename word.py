@@ -1,33 +1,6 @@
-import logging
-
 import letter_dictionaries
 from syllable import Syllable
 from phonetic_code import phonetic
-
-'''
-error: flikje  rhymes with zeiden...
-TO BE IMPLEMENTED:
-* Programming:
-    * logger still isnt imported via __init__.py have to do it via console
-* Split
-    * ijs-yog-hurt but ba-by-opera, probably impossible. can do something for analyse where you see y has no vowels around it so it must be the vowel.
-    * when y is seen as an end cosonant it should be a vowel for next syllable (really hard as we would have to have found a second vowel)
-
-* Sound
-    * sound files for consonants and some dipthongs
-    * nieuw, duw, hoi, groei, leeuw (just ignore the w)
-* Rhyme inventory
-    * full rhyme only do stressed part?
-    * vader now rhymes with 'vaal' because both have vowels a0 maybe special symbol for aa infront of l/r
-* phonetic
-    * ieuw, duw, eeuw
-    * change trema to ^ so ä should be â á ä
-    * ontdek = ondek ( maybe not?) (then also onbedoeld = ombedoeld), anker = angker, research all these combinations
-    * jasje maybe jaße? not sure so implement ,ß for end_con s
-    * different r's
-    * dommeriken = domm0riken so fix both e and i, same volkeren, kalveren shouldn't be volkiiren
-    * maybe make previous_letter() and next_letter() functions so you don't have to do i>0 and end_cons[i-1] everytime
-'''
 
 
 class Word:
@@ -77,7 +50,7 @@ class Word:
         for index in range(start, self._length+1):
             if index >= self._length:
                 break
-            logging.debug(f'index letter: {self.text[index]}, {index}')
+
             next_let = self.text[index+1] if index < self._length-1 else ''
             if self.text[index] == '-':
                 index += 1
@@ -111,10 +84,8 @@ class Word:
                     index = syl.fix_end_cons(index)
                     break
             else:
-                logging.debug(f'"{self.text[index]}" is not a letter.')
                 pass
         if syl.vowels in letter_dictionaries.VOWELS_WITH_ACCENTS:
-            logging.debug(f' The syllable contains an accent, {syl.vowels}.')
             syl.remove_accents()
 
         syl.fix_start_cons()
@@ -135,7 +106,6 @@ class Word:
         for letter in self._pronunciation:
             if letter not in letter_dictionaries.PHONETIC_SYSTEM_CONSONANTS:
                 vowels += letter
-        logging.debug(vowels)
         return vowels
 
     def get_rhyme_part(self):

@@ -1,5 +1,3 @@
-import logging
-
 import letter_dictionaries
 
 
@@ -63,13 +61,10 @@ class Syllable:
         if self._prev_syl.text and not (self._start_cons + self._vowels == 'tje'):
             # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
             while self._start_cons not in (letter_dictionaries.VALID_CONSONANT_COMBINATIONS | letter_dictionaries.CONSONANTS):
-                logging.debug(
-                    f'start cons {self._start_cons} is not a valid consonant combination')
                 self._prev_syl._end_cons += self._start_cons[0]
                 self._start_cons = self._start_cons[1:]
 
     def fix_end_cons(self, index):
-        print('fix end cons:', self.end_cons)
         if len(self.end_cons) == 1 and self.end_cons != 'x':
             # if there is only 1 ending consonant the cons should go to the next syllable
             # except if the end_cons == x, as taxi is pronounced tax-i not ta-xi

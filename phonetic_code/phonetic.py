@@ -1,5 +1,3 @@
-import logging
-
 import letter_dictionaries
 from syllable import Syllable
 from phonetic_code.start_pronunciations import StartPronunciations
@@ -70,7 +68,6 @@ def find_vowel_pronunciation(syllable):
 
     else:
         vowel_sound = default_phonetic_symbol(syllable.vowels)
-    logging.debug(f'Vowel sound for vowel {syllable.vowels}: {vowel_sound}')
     return vowel_sound
 
 
