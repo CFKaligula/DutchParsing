@@ -101,7 +101,7 @@ def find_rhyme_from_json_file(input_word, rhyme_type):
 
 
 def find_rhyme(input_word, rhyme_type):
-    create_phonetic_dictionary_file()
+    # create_phonetic_dictionary_file()
 
     find_rhyme_from_json_file(input_word, rhyme_type)
 

@@ -50,9 +50,9 @@ def find_vowel_pronunciation(syllable):
         vowel_sound = add_accent(syllable.vowels)
     elif syllable.vowels in letter_dictionaries.VOWELS:
         if not syllable.end_cons:
-            if syllable.next_syl is not None and syllable.next_syl.start_cons != '' and syllable.next_syl.start_cons[0] in {'r', 'l'}:
+            if syllable.next_syl is not None and syllable.next_syl.start_cons != '' and syllable.next_syl.start_cons[0] == 'r':
                 # if the next syllable starts with an r, some vowels are pronounced differently
-                vowel_sound = next_syl_r_or_l(syllable.vowels)
+                vowel_sound = next_syl_r(syllable.vowels)
             else:
                 vowel_sound = find_open_vowel_pronunciation(syllable)
         elif (syllable.vowels + syllable.end_cons) in {'en', 'er'} and not syllable.next_syl:
@@ -146,10 +146,9 @@ def r_or_l_phonetic_symbol(dipthong):
     return switcher.get(dipthong, default_phonetic_symbol(dipthong))
 
 
-def next_syl_r_or_l(vowel):
+def next_syl_r(vowel):
     switcher = {
         'o': 'oo',  # voren
-        'i': 'í',  # gieren hypothetically
         'e': 'ii'  # scheren
     }
     return switcher.get(vowel, add_accent(vowel))
