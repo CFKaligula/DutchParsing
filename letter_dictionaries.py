@@ -20,7 +20,7 @@ VALID_CONSONANT_COMBINATIONS = {
     # j
     # m
     # n
-    'p', 'pl', 'pr',
+    'pl', 'pr',
     # q
     # r
     'sk', 'sl', 'sj', 'sm', 'sn', 'sp', 'sr', 'st', 'sw', 'sch', 'schr', 'schl', 'str', 'spr', 'spl', 'scr',  # sh
@@ -29,7 +29,7 @@ VALID_CONSONANT_COMBINATIONS = {
     'wr',
     # x
     # y
-    'z', 'zw'
+    'zw'
 }
 
 PREPOSITION_EXCEPTIONS = {'beter', 'geven', 'ver', 'beven', 'bezem', 'gele'}

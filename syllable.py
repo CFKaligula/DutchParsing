@@ -75,7 +75,7 @@ class Syllable:
                 # for diminutives the 'tj' will be the start of the next one e.g. au-too-tje
                 self._end_cons = ''
                 index -= 2
-            if self.end_cons == 'sch':
+            elif self.end_cons == 'sch':
                 # for diminutives the 'tj' will be the start of the next one e.g. au-too-tje
                 self._end_cons = ''
                 index -= 3
