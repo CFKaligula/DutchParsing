@@ -62,7 +62,7 @@ class Syllable:
                 found_vowel = True
 
     def fix_start_cons(self):
-        if self._prev_syl.text and not (self._start_cons + self._vowels == 'tje'):
+        if self._prev_syl.text != "" and not (self._start_cons + self._vowels == 'tje'):
             # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
             while self._start_cons not in (letter_dictionaries.VALID_CONSONANT_COMBINATIONS | letter_dictionaries.CONSONANTS):
                 logging.debug(
@@ -81,7 +81,7 @@ class Syllable:
                 # for diminutives the 'tj' will be the start of the next one e.g. au-too-tje
                 self._end_cons = ''
                 index -= 2
-            if self.end_cons == 'sch':
+            elif self.end_cons == 'sch':
                 # for diminutives the 'tj' will be the start of the next one e.g. au-too-tje
                 self._end_cons = ''
                 index -= 3

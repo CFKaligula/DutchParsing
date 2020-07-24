@@ -41,6 +41,7 @@ def split_tester():
 
 def phonetic_tester():
     test_dict = {
+        'pen': 'pen',
         'ga': 'gá',
         'gas': 'gas',
         'gade': 'gád0',

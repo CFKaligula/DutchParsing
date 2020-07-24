@@ -55,7 +55,7 @@ def find_vowel_pronunciation(syllable):
                 vowel_sound = next_syl_r(syllable.vowels)
             else:
                 vowel_sound = find_open_vowel_pronunciation(syllable)
-        elif (syllable.vowels + syllable.end_cons) in {'en', 'er'} and not syllable.next_syl:
+        elif (syllable.vowels + syllable.end_cons) in {'en', 'er'} and syllable.prev_syl.text != "" and not syllable.next_syl:
             # lopen and loper
             return '0'
         elif syllable.end_cons == 'sch'and syllable.vowels == 'i':

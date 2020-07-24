@@ -29,6 +29,12 @@ class EndPronunciations:
         return end_con_sound
 
     @staticmethod
+    def find_end_d_pronunciation(syllable, i):
+        start_con_sound = ''
+        start_con_sound += 't'
+        return start_con_sound
+
+    @staticmethod
     def find_end_g_pronunciation(syllable, i):
         end_con_sound = ''
         if i > 0 and syllable.end_cons[i-1] == 'n':
@@ -59,12 +65,6 @@ class EndPronunciations:
         else:
             end_con_sound += 'n'
         return end_con_sound
-
-    @staticmethod
-    def find_end_d_pronunciation(syllable, i):
-        start_con_sound = ''
-        start_con_sound += 't'
-        return start_con_sound
 
     @staticmethod
     def find_end_v_pronunciation(syllable, i):
