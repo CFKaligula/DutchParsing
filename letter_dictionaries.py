@@ -4,7 +4,7 @@ CONSONANTS = {'b', 'c', 'd', 'f', 'g', 'h', 'k', 'l', 'j',
 VOWELS = {'a', 'e', 'i', 'o', 'u'}
 VOWELS_WITH_ACCENTS = {'á', 'ä', 'é', 'ë', 'í', 'ï', 'ó',  "ö", 'ú', 'ü'}
 DIPTHONGS = {'au', 'ou', 'ei', 'ij', 'oe',
-             'ui',  'aa', 'ee', 'ie', 'oo', 'uu', 'oi'}
+             'ui',  'aa', 'ee', 'ie', 'oo', 'uu', 'oi', 'eu'}
 TRIPTHONGS = {'oei', 'eau', 'eeu', 'ooi', 'aai', 'oeu', 'ieu'}
 BREAK_SYMBOL = '-'
 VALID_CONSONANT_COMBINATIONS = {
