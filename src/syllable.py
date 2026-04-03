@@ -1,12 +1,10 @@
-from playsound import playsound
-import time
 import logging
+import time
 
-import letter_dictionaries
+import src.letter_dictionaries as letter_dictionaries
 
 
 class Syllable:
-
     def __init__(self, input_text='', prev_syl=None, next_syl=None, word=None):
         self._word = word
         self._start_cons = ''
@@ -62,11 +60,10 @@ class Syllable:
                 found_vowel = True
 
     def fix_start_cons(self):
-        if self._prev_syl.text != "" and not (self._start_cons + self._vowels == 'tje'):
+        if self._prev_syl.text != '' and not (self._start_cons + self._vowels == 'tje'):
             # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
             while self._start_cons not in (letter_dictionaries.VALID_CONSONANT_COMBINATIONS | letter_dictionaries.CONSONANTS):
-                logging.debug(
-                    f'start cons {self._start_cons} is not a valid consonant combination')
+                logging.debug(f'start cons {self._start_cons} is not a valid consonant combination')
                 self._prev_syl._end_cons += self._start_cons[0]
                 self._start_cons = self._start_cons[1:]
 
@@ -93,7 +90,7 @@ class Syllable:
         return index
 
     def add_cons(self, cons):
-        if self.vowels is not '':
+        if self.vowels != '':
             if self.vowels + cons == 'ij' and len(self.end_cons) == 0:
                 # special check for dipthong 'ij'
                 self._vowels += cons
@@ -104,9 +101,9 @@ class Syllable:
 
     def add_vowel(self, vowel, next_letter):
         break_bool = False
-        if self.vowels is '':
+        if self.vowels == '':
             self._vowels += vowel
-        elif (self.start_cons + self.vowels == 'qu'):
+        elif self.start_cons + self.vowels == 'qu':
             self._vowels += vowel
         elif (self.vowels + vowel) in letter_dictionaries.TRIPTHONGS:
             # find a tripthong
@@ -123,9 +120,9 @@ class Syllable:
         return break_bool
 
     def add_y(self):
-        if self.vowels is not '':
+        if self.vowels != '':
             self.add_cons('y')
-        elif self.start_cons is not '':
+        elif self.start_cons != '':
             self.add_vowel('y', '')
         else:
             self.add_vowel('y', '')
@@ -141,19 +138,19 @@ class Syllable:
 
     def pronounce_syllable(self):
         logging.debug(f'pronounceing syllable {self.text}')
-        # playsound('soundFiles/consonants/processed/d1.mp3')
         for letter in self._start_cons:
             if self._start_cons.index(letter) == 0 and self._prev_syl.end_cons[-1:] == self._start_cons[0]:
                 logging.debug('skipping first cons as it is the same as previous ending cons')
             else:
-                playsound(f'soundFiles/consonants/processed/d.mp3')
+                sound_path = f'soundFiles/consonants/processed/{letter}.mp3'
         # time.sleep(0.08)
         if self._vowels:
             self.pronounce_vowel()
 
         for letter in self._end_cons:
             logging.debug('play end')
-            playsound(f'soundFiles/consonants/processed/{letter}.mp3')
+            sound_path = f'soundFiles/consonants/processed/{letter}.mp3'
+
         time.sleep(0.1)
 
     def pronounce_vowel(self):
@@ -181,6 +178,8 @@ class Syllable:
         if file_name == None:
             file_name = self._vowels
         vowel_file_path = f'soundFiles/vowels/processed/{file_name}.mp3'
-        logging.debug(f'playing {vowel_file_path} ', )
+        logging.debug(
+            f'playing {vowel_file_path} ',
+        )
         playsound(vowel_file_path)
         # time.sleep(0.1)

@@ -1,10 +1,10 @@
 import logging
 
-import letter_dictionaries
-from syllable import Syllable
-from phonetic_code import phonetic
+import src.letter_dictionaries as letter_dictionaries
+from src.phonetic import phonetic
+from src.syllable import Syllable
 
-'''
+"""
 error: flikje  rhymes with zeiden...
 TO BE IMPLEMENTED:
 * Programming:
@@ -27,7 +27,7 @@ TO BE IMPLEMENTED:
     * different r's 
     * dommeriken = domm0riken so fix both e and i, same volkeren, kalveren shouldn't be volkiiren
     * maybe make previous_letter() and next_letter() functions so you don't have to do i>0 and end_cons[i-1] everytime
-'''
+"""
 
 
 class Word:
@@ -59,14 +59,14 @@ class Word:
         result = ''
         for syllable in self._syllables:
             result += syllable.text + letter_dictionaries.BREAK_SYMBOL
-        result = result[:-1]    # we remove the last break symbol
+        result = result[:-1]  # we remove the last break symbol
         return result
 
-    def initialize_syllables(self,  start, syllable_list):
+    def initialize_syllables(self, start, syllable_list):
         # Check if we are done recursing
         if start >= self.length:
-            for i in range(0, len(syllable_list)-1):
-                syllable_list[i]._next_syl = syllable_list[i+1]
+            for i in range(0, len(syllable_list) - 1):
+                syllable_list[i]._next_syl = syllable_list[i + 1]
             return syllable_list
         # Create a syllable
         if len(syllable_list) == 0:
@@ -74,17 +74,17 @@ class Word:
         else:
             syl = Syllable(prev_syl=syllable_list[-1], word=self)
         # Loop over the word to create the syllable
-        for index in range(start, self._length+1):
+        for index in range(start, self._length + 1):
             if index >= self._length:
                 break
             logging.debug(f'index letter: {self.text[index]}, {index}')
-            next_let = self.text[index+1] if index < self._length-1 else ''
+            next_let = self.text[index + 1] if index < self._length - 1 else ''
             if self.text[index] == '-':
                 index += 1
                 break
 
             elif self.text[index] in letter_dictionaries.CONSONANTS:
-                if self.text[index] == 'y' and index == self.length-1:
+                if self.text[index] == 'y' and index == self.length - 1:
                     if len(syl.end_cons) > 0:
                         index = syl.fix_end_cons(index)
                         break
