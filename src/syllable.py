@@ -1,18 +1,32 @@
-import logging
+from __future__ import annotations
+
 import time
+from typing import TYPE_CHECKING, Optional
+
+import logbasic  # type: ignore
 
 import src.letter_dictionaries as letter_dictionaries
 
+if TYPE_CHECKING:
+    from src.word import Word
+
 
 class Syllable:
-    def __init__(self, input_text='', prev_syl=None, next_syl=None, word=None):
+    def __init__(
+        self,
+        input_text: str = '',
+        prev_syl: Optional[Syllable] = None,
+        next_syl: Optional[Syllable] = None,
+        word: Optional[Word] = None,
+    ):
+        self._prev_syl = prev_syl
+        self._next_syl = next_syl
         self._word = word
+
         self._start_cons = ''
         self._vowels = ''
         self._end_cons = ''
         self.find_cons_and_vowels(input_text.lower())
-        self._prev_syl = prev_syl
-        self._next_syl = next_syl
 
     @property
     def word(self):
@@ -60,10 +74,10 @@ class Syllable:
                 found_vowel = True
 
     def fix_start_cons(self):
-        if self._prev_syl.text != '' and not (self._start_cons + self._vowels == 'tje'):
+        if self._prev_syl and self._prev_syl.text != '' and not (self._start_cons + self._vowels == 'tje'):
             # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
             while self._start_cons not in (letter_dictionaries.VALID_CONSONANT_COMBINATIONS | letter_dictionaries.CONSONANTS):
-                logging.debug(f'start cons {self._start_cons} is not a valid consonant combination')
+                logbasic.debug(f'start cons {self._start_cons} is not a valid consonant combination')
                 self._prev_syl._end_cons += self._start_cons[0]
                 self._start_cons = self._start_cons[1:]
 
@@ -127,29 +141,30 @@ class Syllable:
         else:
             self.add_vowel('y', '')
 
-    def remove_accents(self):
-        self._vowels = ''.join(list(map(letter_dictionaries.remove_accent, self._vowels)))
+    def remove_accents_from_vowels(self):
+        self._vowels = ''.join([letter_dictionaries.remove_accent(char) for char in self._vowels])
 
     def display_cons_and_vowels(self):
-        logging.info(f'The cons and vowels for {self.text} are:')
-        logging.info(f'start_cons: {self._start_cons}')
-        logging.info(f'vowels: {self._vowels}')
-        logging.info(f'end_cons: {self._end_cons}')
+        logbasic.info(f'The cons and vowels for {self.text} are:')
+        logbasic.info(f'\t*start_cons: {self._start_cons}')
+        logbasic.info(f'\t*vowels: {self._vowels}')
+        logbasic.info(f'\t*end_cons: {self._end_cons}')
 
     def pronounce_syllable(self):
-        logging.debug(f'pronounceing syllable {self.text}')
+        logbasic.debug(f'pronouncing syllable {self.text}')
         for letter in self._start_cons:
-            if self._start_cons.index(letter) == 0 and self._prev_syl.end_cons[-1:] == self._start_cons[0]:
-                logging.debug('skipping first cons as it is the same as previous ending cons')
+            if self._start_cons.index(letter) == 0 and self._prev_syl and self._prev_syl.end_cons[-1:] == self._start_cons[0]:
+                logbasic.debug('skipping first cons as it is the same as previous ending cons')
             else:
-                sound_path = f'soundFiles/consonants/processed/{letter}.mp3'
+                logbasic.debug(f'playing start letter {letter}')
+                # sound_path = f'soundFiles/consonants/processed/{letter}.mp3'
         # time.sleep(0.08)
         if self._vowels:
             self.pronounce_vowel()
 
         for letter in self._end_cons:
-            logging.debug('play end')
-            sound_path = f'soundFiles/consonants/processed/{letter}.mp3'
+            logbasic.debug(f'playing end letter {letter}')
+            # sound_path = f'soundFiles/consonants/processed/{letter}.mp3'
 
         time.sleep(0.1)
 
@@ -164,22 +179,22 @@ class Syllable:
             if self._end_cons[0] in {'r', 'l'}:
                 # if the end cons start with an r or an l, some vowels are pronounced differently
                 if self._vowels == 'oo':
-                    file_name == 'o'
+                    file_name = 'o'
                 if self._vowels == 'ee':
-                    file_name == 'i'
+                    file_name = 'i'
                 if self._vowels == 'ei' or self._vowels == 'ij':
-                    file_name == 'e'
+                    file_name = 'e'
         if self._vowels == 'ij':
             file_name = 'ei'
         if self._vowels == 'oeu':
             file_name = 'eu'
         if self._vowels == 'ou':
             file_name = 'au'
-        if file_name == None:
+        if file_name is None:
             file_name = self._vowels
-        vowel_file_path = f'soundFiles/vowels/processed/{file_name}.mp3'
-        logging.debug(
-            f'playing {vowel_file_path} ',
-        )
-        playsound(vowel_file_path)
-        # time.sleep(0.1)
+
+        # vowel_file_path = f'soundFiles/vowels/processed/{file_name}.mp3'
+        logbasic.debug('playing vowel')
+        logbasic.debug('playing vowel')
+        logbasic.debug('playing vowel')
+        logbasic.debug('playing vowel')

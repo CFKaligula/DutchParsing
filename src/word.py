@@ -1,4 +1,4 @@
-import logging
+import logbasic  # type: ignore
 
 import src.letter_dictionaries as letter_dictionaries
 from src.phonetic import phonetic
@@ -31,7 +31,7 @@ TO BE IMPLEMENTED:
 
 
 class Word:
-    def __init__(self, text):
+    def __init__(self, text: str):
         self._text = text.lower()
         self._length = len(text)
         self._syllables = self.initialize_syllables(0, [])
@@ -54,6 +54,15 @@ class Word:
     def pronunciation(self):
         return self._pronunciation
 
+    def initialize_pronunciation(self):
+        for syllable in self.syllables:
+            if syllable.start_cons:
+                self._pronunciation += phonetic.find_start_con_pronunciation(syllable)
+            if syllable.vowels:
+                self._pronunciation += phonetic.find_vowel_pronunciation(syllable)
+            if syllable.end_cons:
+                self._pronunciation += phonetic.find_end_con_pronunciation(syllable)
+
     def get_split_word(self):
         # returns the word split into syllables with dashes
         result = ''
@@ -68,16 +77,18 @@ class Word:
             for i in range(0, len(syllable_list) - 1):
                 syllable_list[i]._next_syl = syllable_list[i + 1]
             return syllable_list
+
         # Create a syllable
         if len(syllable_list) == 0:
             syl = Syllable(prev_syl=Syllable(''), word=self)
         else:
             syl = Syllable(prev_syl=syllable_list[-1], word=self)
-        # Loop over the word to create the syllable
+
+        # Loop over the each letter in the word to create the syllable
         for index in range(start, self._length + 1):
             if index >= self._length:
                 break
-            logging.debug(f'index letter: {self.text[index]}, {index}')
+            logbasic.debug(f'index letter: {self.text[index]}, {index}')
             next_let = self.text[index + 1] if index < self._length - 1 else ''
             if self.text[index] == '-':
                 index += 1
@@ -109,24 +120,16 @@ class Word:
                     index = syl.fix_end_cons(index)
                     break
             else:
-                logging.debug(f'"{self.text[index]}" is not a letter.')
+                logbasic.debug(f'"{self.text[index]}" is not a letter.')
                 pass
+
         if syl.vowels in letter_dictionaries.VOWELS_WITH_ACCENTS:
-            logging.debug(f' The syllable contains an accent, {syl.vowels}.')
-            syl.remove_accents()
+            logbasic.debug(f' The syllable contains an accent, {syl.vowels}.')
+            syl.remove_accents_from_vowels()
 
         syl.fix_start_cons()
         syllable_list.append(syl)
         return self.initialize_syllables(index, syllable_list)
-
-    def initialize_pronunciation(self):
-        for syllable in self.syllables:
-            if syllable.start_cons:
-                self._pronunciation += phonetic.find_start_con_pronunciation(syllable)
-            if syllable.vowels:
-                self._pronunciation += phonetic.find_vowel_pronunciation(syllable)
-            if syllable.end_cons:
-                self._pronunciation += phonetic.find_end_con_pronunciation(syllable)
 
     def pronounce_word(self):
         for syllable in self._syllables:
@@ -137,7 +140,7 @@ class Word:
         for letter in self._pronunciation:
             if letter not in letter_dictionaries.PHONETIC_SYSTEM_CONSONANTS:
                 vowels += letter
-        logging.debug(vowels)
+        logbasic.debug(vowels)
         return vowels
 
     def get_rhyme_part(self):

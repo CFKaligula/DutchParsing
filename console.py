@@ -1,7 +1,8 @@
 import json
-import logging
 import os
 from argparse import ArgumentParser
+
+import logbasic  # type: ignore
 
 from src.word import Word
 
@@ -39,12 +40,12 @@ def analyze(input_sentence):
                 analyze_dict[syllable.text] += 1
     sorted_dict = {k: v for k, v in sorted(analyze_dict.items(), key=lambda item: item[1], reverse=True)}
     letter_sorted_dict = {k: v for k, v in sorted(letter_analyze_dict.items(), key=lambda item: item[1], reverse=True)}
-    logging.info(f'there were a total of {len(analyze_dict)} unique syllables in the text, of {len(words)} words and {syllable_count} total syllables.')
-    logging.info(f'there were a total of {letter_count} letters.')
+    logbasic.info(f'there were a total of {len(analyze_dict)} unique syllables in the text, of {len(words)} words and {syllable_count} total syllables.')
+    logbasic.info(f'there were a total of {letter_count} letters.')
     top10 = {key: value for key, value in list(sorted_dict.items())[0:10]}
-    logging.info(f'the {len(top10)} most common syllable(s) was/were {top10}')
+    logbasic.info(f'the {len(top10)} most common syllable(s) was/were {top10}')
     top10letter_dictionaries = {key: value for key, value in list(letter_sorted_dict.items())[0:10]}
-    logging.info(f'the {len(top10letter_dictionaries)} most common letter(s) was/were {top10letter_dictionaries}')
+    logbasic.info(f'the {len(top10letter_dictionaries)} most common letter(s) was/were {top10letter_dictionaries}')
 
 
 RHYME_FUNCTIONS = {'full': Word.get_rhyme_part, 'vowel': Word.get_phonetic_vowels}
@@ -56,7 +57,7 @@ def create_phonetic_dictionary_file():
 
     full_dictionary = {}
     vowel_dictionary = {}
-    logging.info('Reading dictionaries...')
+    logbasic.info('Reading dictionaries...')
     for i in range(1, 4):
         dictionary = open(eval(f'_RHYME_DICTIONARY_PATH_{i}'), encoding='utf8').read().split()
 
@@ -74,12 +75,12 @@ def create_phonetic_dictionary_file():
 
 
 def find_rhyme_from_json_file(input_word, rhyme_type):
-    logging.info('Finding rhyme words...')
+    logbasic.info('Finding rhyme words...')
     dictionary = json.load(open('full_dictionary.json')) if rhyme_type == 'full' else json.load(open('vowel_dictionary.json'))
     input_word_rhyme_form = RHYME_FUNCTIONS[rhyme_type](Word(input_word))
     rhyme_words = [entry for entry in dictionary if dictionary[entry] == input_word_rhyme_form]
 
-    logging.info(f'Words that {rhyme_type} rhyme with "{input_word}"')
+    logbasic.info(f'Words that {rhyme_type} rhyme with "{input_word}"')
     for word in rhyme_words:
         print(word, end=',')
     print('')
@@ -91,8 +92,8 @@ def find_rhyme(input_word, rhyme_type):
     find_rhyme_from_json_file(input_word, rhyme_type)
 
     input_word = Word(input_word)
-    logging.debug(f'Finding words that {rhyme_type} rhyme with: {RHYME_FUNCTIONS[rhyme_type](input_word)}')
-    logging.info(f'Finding words that {rhyme_type} rhyme with "{input_word.text}"...')
+    logbasic.debug(f'Finding words that {rhyme_type} rhyme with: {RHYME_FUNCTIONS[rhyme_type](input_word)}')
+    logbasic.info(f'Finding words that {rhyme_type} rhyme with "{input_word.text}"...')
 
     dictionary = open(_RHYME_DICTIONARY_PATH_1).read().split()
     rhyme_words = []
@@ -216,4 +217,5 @@ def main():
     (command, args) = _parse_arguments()
 
 
+main()
 main()
