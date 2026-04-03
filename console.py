@@ -1,11 +1,30 @@
 from argparse import ArgumentParser
 
+from src.rhyme import RhymeType, get_rhyme_words_from_dictionaries
 from src.word import Word
 
 _COMMAND_SPLIT = 'split'
 _COMMAND_PRONOUNCE = 'pronounce'
-_COMMAND_PHONETIC = 'phonetic'
 _COMMAND_RHYME = 'rhyme'
+
+
+def get_split(input_word: str) -> None:
+    """splits the input word in syllables and prints them"""
+    word = Word(input_word)
+    print(word.get_split_word(), end=' ')
+
+
+def get_pronunciation(input_word: str) -> None:
+    """gives the phonetic version of the input word"""
+    word = Word(input_word)
+    print(word.pronunciation, end=' ')
+
+
+def find_rhyme(input_word: str, rhyme_type: RhymeType) -> None:
+    """finds the rhyme words for the input word and prints them"""
+
+    rhyme_words = get_rhyme_words_from_dictionaries(input_word, rhyme_type)
+    print(f'Found rhyme words: {"\n\t- ".join(rhyme_words)}')
 
 
 def _add_parser_category_split(subparsers):
@@ -22,11 +41,13 @@ def _add_parser_category_pronounce(subparsers):
     parser.add_argument('input', type=str, help='input for the parser')
 
 
-def _add_parser_category_phonetic(subparsers):
-    parser = subparsers.add_parser(_COMMAND_PHONETIC, help='gives the phonetic version of the input word.')
-    parser.set_defaults(command=_COMMAND_PHONETIC)
+def _add_parser_category_rhyme(subparsers):
+    parser = subparsers.add_parser(_COMMAND_RHYME, help='finds rhyme words for the input word.')
+    parser.set_defaults(command=_COMMAND_RHYME)
 
     parser.add_argument('input', type=str, help='input for the parser')
+
+    parser.add_argument('-t', '--type', type=str, default='full', choices=['full', 'vowel'])
 
 
 def _parse_arguments():
@@ -36,7 +57,7 @@ def _parse_arguments():
     subparsers = parser.add_subparsers(help='Category')
     _add_parser_category_split(subparsers)
     _add_parser_category_pronounce(subparsers)
-    _add_parser_category_phonetic(subparsers)
+    _add_parser_category_rhyme(subparsers)
 
     args = parser.parse_args()
 
@@ -46,20 +67,17 @@ def _parse_arguments():
     elif args.command == _COMMAND_SPLIT:
         input_words = args.input.split()
         for input_word in input_words:
-            word = Word(input_word)
-            print(word.get_split_word(), end=' ')
+            get_split(input_word)
 
     elif args.command == _COMMAND_PRONOUNCE:
         input_words = args.input.split()
         for input_word in input_words:
-            word = Word(input_word)
-            word.pronounce_word()
+            get_pronunciation(input_word)
 
-    elif args.command == _COMMAND_PHONETIC:
+    elif args.command == _COMMAND_RHYME:
         input_words = args.input.split()
         for input_word in input_words:
-            word = Word(input_word)
-            print(word.pronunciation, end=' ')
+            find_rhyme(input_word, RhymeType(args.type))
 
     return (args.command, args)
 

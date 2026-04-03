@@ -99,7 +99,8 @@ def add_accent(vowel: str) -> str:
         'u': 'ú',  # dure?
     }
     if vowel not in switcher:
-        raise Exception(f'Could not find a phonetic symbol for {vowel}, using the vowel itself as a fallback')
+        logbasic.warning(f'Could not find a phonetic symbol for {vowel}, using the vowel itself as a fallback')
+        return vowel
 
     return switcher[vowel]
 
@@ -133,11 +134,14 @@ def default_phonetic_symbol(dipthong: str) -> str:
         'ooi': 'Ó',
         'oei': 'Ö',
         'oeu': 'uu',
+        'eeu': 'ê',  # leeuw = lêw
+        'ieu': 'î',
         'y': 'í',  # sexy
     }
 
     if dipthong not in switcher:
-        raise Exception(f'Could not find a phonetic symbol for {dipthong}, using the dipthong itself as a fallback')
+        logbasic.warning(f'Could not find a phonetic symbol for {dipthong}, using the dipthong itself as a fallback')
+        return dipthong
 
     return switcher[dipthong]
 

@@ -32,9 +32,9 @@ def create_rhyme_dictionaries() -> None:
         os.makedirs(OUTPUT_FOLDER_PATH, exist_ok=True)
 
     input_dictionary_paths = [
-        os.path.join('text_files', 'basiswoorden.txt'),
-        os.path.join('text_files', 'Dutch_Word_List.txt'),
-        os.path.join('text_files', 'DutchDictionary.txt'),
+        os.path.join('assets', 'text_files', 'basiswoorden.txt'),
+        os.path.join('assets', 'text_files', 'Dutch_Word_List.txt'),
+        os.path.join('assets', 'text_files', 'DutchDictionary.txt'),
     ]
 
     full_dictionary = {}
@@ -42,7 +42,8 @@ def create_rhyme_dictionaries() -> None:
     n_syllables_dictionary = {}
     logbasic.info('Reading dictionaries...')
     for dictionary_path in input_dictionary_paths:
-        with open(dictionary_path) as dictionary_file:
+        logbasic.info(f'Reading dictionary from {dictionary_path}...')
+        with open(dictionary_path, 'r', encoding='utf-8') as dictionary_file:
             dictionary = dictionary_file.read().split()
 
         for entry in dictionary:

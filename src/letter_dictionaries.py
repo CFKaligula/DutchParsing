@@ -59,7 +59,36 @@ VALID_CONSONANT_COMBINATIONS = {
 
 PREPOSITION_EXCEPTIONS = {'beter', 'geven', 'ver', 'beven', 'bezem', 'gele'}
 
-PHONETIC_SYSTEM_CONSONANTS = {'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z', '®', 'µ', 'ß', 'æ', 'ð', 'ñ', 'þ'}
+PHONETIC_SYSTEM_CONSONANTS = {
+    'b',
+    'c',
+    'd',
+    'f',
+    'g',
+    'h',
+    'j',
+    'k',
+    'l',
+    'm',
+    'n',
+    'p',
+    'q',
+    'r',
+    's',
+    't',
+    'v',
+    'w',
+    'x',
+    'y',
+    'z',
+    '®',
+    'µ',
+    'ß',
+    'æ',
+    'ð',
+    'ñ',
+    'þ',
+}
 
 PHONETIC_SYSTEM_VOWELS = {
     'a',
