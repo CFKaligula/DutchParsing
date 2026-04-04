@@ -11,13 +11,13 @@ _COMMAND_RHYME = 'rhyme'
 def get_split(input_word: str) -> None:
     """splits the input word in syllables and prints them"""
     word = Word(input_word)
-    print(word.get_split_word(), end=' ')
+    print(word.get_split_word())
 
 
 def get_pronunciation(input_word: str) -> None:
     """gives the phonetic version of the input word"""
     word = Word(input_word)
-    print(word.pronunciation, end=' ')
+    print(word.pronunciation)
 
 
 def find_rhyme(input_word: str, rhyme_type: RhymeType) -> None:

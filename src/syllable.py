@@ -50,14 +50,21 @@ class Syllable:
                 found_vowel = True
 
     def fix_start_cons(self):
+        """
+        fixes the start cons of the syllable if they are not valid.
+        we keep moving the first letter of the start cons to the end cons of the previous syllable until we have a valid start cons
+        """
+        # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
         if self.prev_syl and self.prev_syl.text != '' and not (self.start_cons + self.vowels == 'tje'):
-            # if we have a previous syllable and our syllable does not contain the diminutive 'tje' (as in autootje)
             while self.start_cons not in (letter_dictionaries.VALID_CONSONANT_COMBINATIONS | letter_dictionaries.CONSONANTS):
                 logbasic.debug(f'start cons {self.start_cons} is not a valid consonant combination')
                 self.prev_syl.end_cons += self.start_cons[0]
                 self.start_cons = self.start_cons[1:]
 
     def fix_end_cons(self, index):
+        """
+        fixes the end cons of the syllable if they are not valid.
+        """
         if len(self.end_cons) == 1 and self.end_cons != 'x':
             # if there is only 1 ending consonant the cons should go to the next syllable
             # except if the end_cons == x, as taxi is pronounced tax-i not ta-xi
