@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import time
 from typing import TYPE_CHECKING, Optional
 
 import logbasic  # type: ignore
@@ -23,10 +22,7 @@ class Syllable:
         self.next_syl = next_syl
         self.word = word
 
-        self.start_cons = ''
-        self.vowels = ''
-        self.end_cons = ''
-        self.find_cons_and_vowels(input_text.lower())
+        self.start_cons, self.vowels, self.end_cons = self.find_cons_and_vowels(input_text.lower())
 
     @property
     def text(self):
@@ -36,18 +32,23 @@ class Syllable:
     def length(self):
         return len(self.start_cons + self.vowels + self.end_cons)
 
-    def find_cons_and_vowels(self, input_text):
+    def find_cons_and_vowels(self, input_text) -> tuple[str, str, str]:
+        start_cons = ''
+        vowels = ''
+        end_cons = ''
         # finds the consonant and vowel groups in the syllable
         found_vowel = False
         for letter in input_text:
             if letter in letter_dictionaries.CONSONANTS:
                 if not found_vowel:
-                    self.start_cons += letter
+                    start_cons += letter
                 else:
-                    self.end_cons += letter
+                    end_cons += letter
             else:
-                self.vowels += letter
+                vowels += letter
                 found_vowel = True
+
+        return start_cons, vowels, end_cons
 
     def fix_start_cons(self):
         """
@@ -132,52 +133,3 @@ class Syllable:
         logbasic.info(f'\t*start_cons: {self.start_cons}')
         logbasic.info(f'\t*vowels: {self.vowels}')
         logbasic.info(f'\t*end_cons: {self.end_cons}')
-
-    def pronounce_syllable(self):
-        logbasic.debug(f'pronouncing syllable {self.text}')
-        for letter in self.start_cons:
-            if self.start_cons.index(letter) == 0 and self.prev_syl and self.prev_syl.end_cons[-1:] == self.start_cons[0]:
-                logbasic.debug('skipping first cons as it is the same as previous ending cons')
-            else:
-                logbasic.debug(f'playing start letter {letter}')
-                # sound_path = f'soundFiles/consonants/processed/{letter}.mp3'
-        # time.sleep(0.08)
-        if self.vowels:
-            self.pronounce_vowel()
-
-        for letter in self.end_cons:
-            logbasic.debug(f'playing end letter {letter}')
-            # sound_path = f'soundFiles/consonants/processed/{letter}.mp3'
-
-        time.sleep(0.1)
-
-    def pronounce_vowel(self):
-        file_name = None
-        if not self.end_cons:
-            if self.vowels in {'a', 'e', 'o', 'u'}:
-                file_name = self.vowels + self.vowels
-            elif self.vowels == 'i':
-                file_name = 'ie'
-        else:  # if the syllable is closed
-            if self.end_cons[0] in {'r', 'l'}:
-                # if the end cons start with an r or an l, some vowels are pronounced differently
-                if self.vowels == 'oo':
-                    file_name = 'o'
-                if self.vowels == 'ee':
-                    file_name = 'i'
-                if self.vowels == 'ei' or self.vowels == 'ij':
-                    file_name = 'e'
-        if self.vowels == 'ij':
-            file_name = 'ei'
-        if self.vowels == 'oeu':
-            file_name = 'eu'
-        if self.vowels == 'ou':
-            file_name = 'au'
-        if file_name is None:
-            file_name = self.vowels
-
-        # vowel_file_path = f'soundFiles/vowels/processed/{file_name}.mp3'
-        logbasic.debug('playing vowel')
-        logbasic.debug('playing vowel')
-        logbasic.debug('playing vowel')
-        logbasic.debug('playing vowel')

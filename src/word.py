@@ -106,7 +106,7 @@ class Word:
                         break
 
                 else:
-                    logbasic.debug(f'"{ch}" is not a letter.')
+                    logbasic.warning(f'"{ch}" is not a letter.')
                     index += 1
 
             if syl.vowels in letter_dictionaries.VOWELS_WITH_ACCENTS:
@@ -160,7 +160,3 @@ class Word:
                 break
 
         return self.pronunciation[start_length:]
-
-    def pronounce_word(self) -> None:
-        for syllable in self.syllables:
-            syllable.pronounce_syllable()
