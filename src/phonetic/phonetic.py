@@ -147,7 +147,17 @@ def default_phonetic_symbol(dipthong: str) -> str:
 
 
 def r_or_l_phonetic_symbol(dipthong: str) -> str:
-    switcher = {'aa': 'á0', 'ee': 'ii', 'ie': 'í0', 'oo': 'o0', 'uu': 'ú0', 'ij': 'ee', 'ei': 'ee', 'oe': 'ö0', 'ui': 'ü0'}
+    switcher = {
+        'aa': 'á0',
+        'ee': 'ii',
+        'ie': 'í0',
+        'oo': 'o0',
+        'uu': 'ú0',
+        'ij': 'ee',
+        'ei': 'ee',
+        'oe': 'ö0',
+        'ui': 'ü0',
+    }
     return switcher.get(dipthong, default_phonetic_symbol(dipthong))
 
 
