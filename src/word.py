@@ -32,50 +32,36 @@ TO BE IMPLEMENTED:
 
 class Word:
     def __init__(self, text: str):
-        self._text = text.lower()
-        self._length = len(text)
-        self._syllables = self.initialize_syllables(0, [])
-        self._pronunciation = ''
-        self.initialize_pronunciation()
+        self.text = text.lower()
+        self.length = len(text)
+        self.syllables = self.get_syllables(0, [])
+        self.pronunciation = self.get_pronunciation()
 
-    @property
-    def text(self):
-        return self._text
+    def get_pronunciation(self):
+        pronunciation = ''
 
-    @property
-    def length(self):
-        return self._length
-
-    @property
-    def syllables(self):
-        return self._syllables
-
-    @property
-    def pronunciation(self):
-        return self._pronunciation
-
-    def initialize_pronunciation(self):
         for syllable in self.syllables:
             if syllable.start_cons:
-                self._pronunciation += phonetic.find_start_con_pronunciation(syllable)
+                pronunciation += phonetic.find_start_con_pronunciation(syllable)
             if syllable.vowels:
-                self._pronunciation += phonetic.find_vowel_pronunciation(syllable)
+                pronunciation += phonetic.find_vowel_pronunciation(syllable)
             if syllable.end_cons:
-                self._pronunciation += phonetic.find_end_con_pronunciation(syllable)
+                pronunciation += phonetic.find_end_con_pronunciation(syllable)
+        return pronunciation
 
     def get_split_word(self):
         # returns the word split into syllables with dashes
         result = ''
-        for syllable in self._syllables:
+        for syllable in self.syllables:
             result += syllable.text + letter_dictionaries.BREAK_SYMBOL
         result = result[:-1]  # we remove the last break symbol
         return result
 
-    def initialize_syllables(self, start, syllable_list):
+    def get_syllables(self, start: int, syllable_list: list[Syllable]) -> list[Syllable]:
         # Check if we are done recursing
         if start >= self.length:
             for i in range(0, len(syllable_list) - 1):
-                syllable_list[i]._next_syl = syllable_list[i + 1]
+                syllable_list[i].next_syl = syllable_list[i + 1]
             return syllable_list
 
         # Create a syllable
@@ -85,11 +71,11 @@ class Word:
             syl = Syllable(prev_syl=syllable_list[-1], word=self)
 
         # Loop over the each letter in the word to create the syllable
-        for index in range(start, self._length + 1):
-            if index >= self._length:
+        for index in range(start, self.length + 1):
+            if index >= self.length:
                 break
             logbasic.debug(f'index letter: {self.text[index]}, {index}')
-            next_let = self.text[index + 1] if index < self._length - 1 else ''
+            next_let = self.text[index + 1] if index < self.length - 1 else ''
             if self.text[index] == '-':
                 index += 1
                 break
@@ -129,15 +115,15 @@ class Word:
 
         syl.fix_start_cons()
         syllable_list.append(syl)
-        return self.initialize_syllables(index, syllable_list)
+        return self.get_syllables(index, syllable_list)
 
     def pronounce_word(self):
-        for syllable in self._syllables:
+        for syllable in self.syllables:
             syllable.pronounce_syllable()
 
     def get_phonetic_vowels(self):
         vowels = ''
-        for letter in self._pronunciation:
+        for letter in self.pronunciation:
             if letter not in letter_dictionaries.PHONETIC_SYSTEM_CONSONANTS:
                 vowels += letter
         logbasic.debug(vowels)
@@ -145,10 +131,10 @@ class Word:
 
     def get_rhyme_part(self):
         start_length = 0
-        for letter in self._pronunciation:
+        for letter in self.pronunciation:
             if letter in letter_dictionaries.PHONETIC_SYSTEM_CONSONANTS or letter == '0':
                 # take the part after the first consonats and schwas, so gepakt will find words that also end on akt
                 start_length += 1
             else:
                 break
-        return self._pronunciation[start_length:]
+        return self.pronunciation[start_length:]

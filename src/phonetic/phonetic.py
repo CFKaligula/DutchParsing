@@ -63,7 +63,7 @@ def find_vowel_pronunciation(syllable: Syllable) -> str:
         else:
             vowel_sound = syllable.vowels
 
-    elif syllable.end_cons != '' and syllable._end_cons[0] in {'r', 'l'}:
+    elif syllable.end_cons != '' and syllable.end_cons[0] in {'r', 'l'}:
         # if the end cons start with an r or an l, some dipthongs are pronounced differently
         vowel_sound = r_or_l_phonetic_symbol(syllable.vowels)
 
