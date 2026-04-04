@@ -1,6 +1,6 @@
 import logbasic  # type: ignore
 
-import src.letter_dictionaries as letter_dictionaries
+from src.letter_dictionaries import CONSONANTS, PHONETIC_SYSTEM_CONSONANTS, VOWELS, VOWELS_WITH_ACCENTS
 from src.phonetic import phonetic
 from src.syllable import Syllable
 
@@ -72,7 +72,7 @@ class Word:
                     break
 
                 # CONSONANTS
-                elif ch in letter_dictionaries.CONSONANTS:
+                elif ch in CONSONANTS:
                     if ch == 'y' and index == self.length - 1:
                         if len(syl.end_cons) > 0:
                             index = syl.fix_end_cons(index)
@@ -84,7 +84,7 @@ class Word:
                     index += 1
 
                 # VOWELS
-                elif ch in letter_dictionaries.VOWELS:
+                elif ch in VOWELS:
                     if len(syl.end_cons) > 0:
                         index = syl.fix_end_cons(index)
                         break
@@ -95,7 +95,7 @@ class Word:
                         index += 1
 
                 # VOWELS WITH ACCENTS
-                elif ch in letter_dictionaries.VOWELS_WITH_ACCENTS:
+                elif ch in VOWELS_WITH_ACCENTS:
                     if len(syl.vowels) == 0:
                         break_bool = syl.add_vowel(ch, next_let)
                         if break_bool:
@@ -109,7 +109,7 @@ class Word:
                     logbasic.warning(f'"{ch}" is not a letter.')
                     index += 1
 
-            if syl.vowels in letter_dictionaries.VOWELS_WITH_ACCENTS:
+            if syl.vowels in VOWELS_WITH_ACCENTS:
                 logbasic.debug(f' The syllable contains an accent, {syl.vowels}.')
                 syl.remove_accents_from_vowels()
 
@@ -130,7 +130,7 @@ class Word:
         """
         result = ''
         for syllable in self.syllables:
-            result += syllable.text + letter_dictionaries.BREAK_SYMBOL
+            result += syllable.text + '-'
         result = result[:-1]  # we remove the last break symbol
         return result
 
@@ -141,7 +141,7 @@ class Word:
         vowels = ''
         for letter in self.pronunciation:
             # TODO why not "in vowels"?
-            if letter not in letter_dictionaries.PHONETIC_SYSTEM_CONSONANTS:
+            if letter not in PHONETIC_SYSTEM_CONSONANTS:
                 vowels += letter
         logbasic.debug(vowels)
         return vowels
@@ -153,7 +153,7 @@ class Word:
         """
         start_length = 0
         for letter in self.pronunciation:
-            if letter in letter_dictionaries.PHONETIC_SYSTEM_CONSONANTS or letter == '0':
+            if letter in PHONETIC_SYSTEM_CONSONANTS or letter == '0':
                 # take the part after the first consonants and schwas, so gepakt will find words that also end on akt
                 start_length += 1
             else:

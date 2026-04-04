@@ -1,6 +1,6 @@
 import logbasic  # type: ignore
 
-import src.letter_dictionaries as letter_dictionaries
+from src.letter_dictionaries import PREPOSITION_EXCEPTIONS, VOWELS
 from src.phonetic.end_pronunciations import EndPronunciations
 from src.phonetic.start_pronunciations import StartPronunciations
 from src.syllable import Syllable
@@ -47,7 +47,7 @@ def find_vowel_pronunciation(syllable: Syllable) -> str:
     elif syllable.start_cons == 'c' and syllable.vowels == 'i':
         # citroen
         vowel_sound = add_accent(syllable.vowels)
-    elif syllable.vowels in letter_dictionaries.VOWELS:
+    elif syllable.vowels in VOWELS:
         if not syllable.end_cons:
             if syllable.next_syl is not None and syllable.next_syl.start_cons != '' and syllable.next_syl.start_cons[0] == 'r':
                 # if the next syllable starts with an r, some vowels are pronounced differently
@@ -81,7 +81,7 @@ def find_open_vowel_pronunciation(syllable: Syllable) -> str:
             'be',
         }
         and syllable.word
-        and syllable.word.text not in letter_dictionaries.PREPOSITION_EXCEPTIONS
+        and syllable.word.text not in PREPOSITION_EXCEPTIONS
     ):
         return '0'
     elif syllable.next_syl:

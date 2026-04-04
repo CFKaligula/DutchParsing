@@ -4,7 +4,7 @@ VOWELS = {'a', 'e', 'i', 'o', 'u'}
 VOWELS_WITH_ACCENTS = {'á', 'ä', 'é', 'ë', 'í', 'ï', 'ó', 'ö', 'ú', 'ü'}
 DIPTHONGS = {'au', 'ou', 'ei', 'ij', 'oe', 'ui', 'aa', 'ee', 'ie', 'oo', 'uu', 'oi', 'eu'}
 TRIPTHONGS = {'oei', 'eau', 'eeu', 'ooi', 'aai', 'oeu', 'ieu'}
-BREAK_SYMBOL = '-'
+
 VALID_CONSONANT_COMBINATIONS = {
     '',
     'bl',
@@ -57,7 +57,6 @@ VALID_CONSONANT_COMBINATIONS = {
     'zw',
 }
 
-PREPOSITION_EXCEPTIONS = {'beter', 'geven', 'ver', 'beven', 'bezem', 'gele'}
 
 PHONETIC_SYSTEM_CONSONANTS = {
     'b',
@@ -115,17 +114,4 @@ PHONETIC_SYSTEM_VOWELS = {
     'Ó',
 }
 
-
-def remove_accent(letter: str) -> str:
-    if letter in {'á', 'ä'}:
-        return 'a'
-    if letter in {'é', 'ë'}:
-        return 'e'
-    if letter in {'í', 'ï'}:
-        return 'i'
-    if letter in {'ó', 'ö'}:
-        return 'o'
-    if letter in {'ú', 'ü'}:
-        return 'u'
-    else:
-        return letter
+PREPOSITION_EXCEPTIONS = {'beter', 'geven', 'ver', 'beven', 'bezem', 'gele'}
