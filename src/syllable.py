@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Optional
 
-import logbasic
+import logbasic  # type: ignore
 
 from src.letter_dictionaries import CONSONANTS, DIPTHONGS, TRIPTHONGS, VALID_CONSONANT_COMBINATIONS
 
