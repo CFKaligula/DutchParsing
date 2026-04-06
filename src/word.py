@@ -26,7 +26,7 @@ TO BE IMPLEMENTED:
     * jasje maybe jaße? not sure so implement ,ß for end_con s
     * different r's 
     * dommeriken = domm0riken so fix both e and i, same volkeren, kalveren shouldn't be volkiiren
-    * maybe make previous_letter() and next_letter() functions so you don't have to do i>0 and end_cons[i-1] everytime
+    * maybe make previous_letter() and next_letterter() functions so you don't have to do i>0 and end_cons[i-1] everytime
 """
 
 
@@ -64,40 +64,41 @@ class Word:
             # Build this syllable by advancing index until we should stop
             while index < self.length:
                 logbasic.debug(f'index letter: {self.text[index]}, {index}')
-                next_let = self.text[index + 1] if index < self.length - 1 else ''
-                ch = self.text[index]
 
-                if ch == '-':
+                current_letter = self.text[index]
+                next_letter = self.text[index + 1] if index + 1 < self.length else '-'
+
+                if current_letter == '-':
                     index += 1
                     break
 
                 # CONSONANTS
-                elif ch in CONSONANTS:
-                    if ch == 'y' and index == self.length - 1:
+                elif current_letter in CONSONANTS:
+                    if current_letter == 'y' and index == self.length - 1:
                         if len(syl.end_cons) > 0:
                             index = syl.fix_end_cons(index)
                             break
                         else:
                             syl.add_y()
                     else:
-                        syl.add_cons(ch)
+                        syl.add_cons(current_letter)
                     index += 1
 
                 # VOWELS
-                elif ch in VOWELS:
+                elif current_letter in VOWELS:
                     if len(syl.end_cons) > 0:
                         index = syl.fix_end_cons(index)
                         break
                     else:
-                        break_bool = syl.add_vowel(ch, next_let)
+                        break_bool = syl.add_vowel(current_letter, next_letter)
                         if break_bool:
                             break
                         index += 1
 
                 # VOWELS WITH ACCENTS
-                elif ch in VOWELS_WITH_ACCENTS:
+                elif current_letter in VOWELS_WITH_ACCENTS:
                     if len(syl.vowels) == 0:
-                        break_bool = syl.add_vowel(ch, next_let)
+                        break_bool = syl.add_vowel(current_letter, next_letter)
                         if break_bool:
                             break
                         index += 1
@@ -106,7 +107,7 @@ class Word:
                         break
 
                 else:
-                    logbasic.warning(f'"{ch}" is not a letter.')
+                    logbasic.warning(f'"{current_letter}" is not a letter.')
                     index += 1
 
             if syl.vowels in VOWELS_WITH_ACCENTS:
