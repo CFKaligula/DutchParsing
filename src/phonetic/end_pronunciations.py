@@ -9,17 +9,15 @@ class EndPronunciations:
 
     @staticmethod
     def find_end_b_pronunciation(syllable, i):
-        start_con_sound = ''
-        start_con_sound += 'p'
-        return start_con_sound
+        return 'p'
 
     @staticmethod
     def find_end_c_pronunciation(syllable, i):
         end_con_sound = ''
-        if i > 0 and syllable.end_cons[i-1] == 's':
+        if i > 0 and syllable.end_cons[i - 1] == 's':
             # scepter, legendarisch
             pass
-        elif i < len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'h':
+        elif i < len(syllable.end_cons) - 1 and syllable.end_cons[i + 1] == 'h':
             # ch, should not appear at the start but just in case
             end_con_sound += 'g'
         else:
@@ -30,14 +28,12 @@ class EndPronunciations:
 
     @staticmethod
     def find_end_d_pronunciation(syllable, i):
-        start_con_sound = ''
-        start_con_sound += 't'
-        return start_con_sound
+        return 't'
 
     @staticmethod
     def find_end_g_pronunciation(syllable, i):
         end_con_sound = ''
-        if i > 0 and syllable.end_cons[i-1] == 'n':
+        if i > 0 and syllable.end_cons[i - 1] == 'n':
             # ng is already processed with the n
             pass
         else:
@@ -48,7 +44,7 @@ class EndPronunciations:
     @staticmethod
     def find_end_h_pronunciation(syllable, i):
         end_con_sound = ''
-        if i > 0 and syllable.end_cons[i-1] == 'c':
+        if i > 0 and syllable.end_cons[i - 1] == 'c':
             # ch
             pass
         else:
@@ -58,7 +54,7 @@ class EndPronunciations:
     @staticmethod
     def find_end_n_pronunciation(syllable, i):
         end_con_sound = ''
-        if i+1 <= len(syllable.end_cons)-1 and syllable.end_cons[i+1] == 'g':
+        if i + 1 <= len(syllable.end_cons) - 1 and syllable.end_cons[i + 1] == 'g':
             end_con_sound += 'µ'
         elif syllable.next_syl is not None and len(syllable.next_syl.start_cons) > 0 and syllable.next_syl.start_cons[0] == 'j':
             end_con_sound += 'ñ'
@@ -68,12 +64,8 @@ class EndPronunciations:
 
     @staticmethod
     def find_end_v_pronunciation(syllable, i):
-        start_con_sound = ''
-        start_con_sound += 'f'
-        return start_con_sound
+        return 'f'
 
     @staticmethod
     def find_end_z_pronunciation(syllable, i):
-        start_con_sound = ''
-        start_con_sound += 's'
-        return start_con_sound
+        return 's'

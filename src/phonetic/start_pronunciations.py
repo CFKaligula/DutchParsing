@@ -1,8 +1,9 @@
+from src.syllable import Syllable
+
 
 class StartPronunciations:
-
     @staticmethod
-    def default_start_consonant_replacement(syllable, i):
+    def default_start_consonant_replacement(syllable: Syllable, i: int) -> str:
         switcher = {
             'y': 'j',
             'x': 'ks',
@@ -10,16 +11,15 @@ class StartPronunciations:
         return switcher.get(syllable.start_cons[i], syllable.start_cons[i])
 
     @staticmethod
-    def find_start_c_pronunciation(syllable, i):
+    def find_start_c_pronunciation(syllable: Syllable, i: int) -> str:
         start_con_sound = ''
-        if i > 0 and syllable.start_cons[i-1] == 's':
+        if i > 0 and syllable.start_cons[i - 1] == 's':
             # scepter, legendarische
             pass
-        elif i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'h':
+        elif i < len(syllable.start_cons) - 1 and syllable.start_cons[i + 1] == 'h':
             # ch, should not appear at the start but just in case
             start_con_sound += 'g'
-        elif i < len(syllable.start_cons)-1 \
-                or len(syllable.vowels) > 0 and (syllable.vowels[0] in {'a', 'o', 'u'} or syllable.start_cons + syllable.vowels[0] == 'sce'):
+        elif i < len(syllable.start_cons) - 1 or len(syllable.vowels) > 0 and (syllable.vowels[0] in {'a', 'o', 'u'} or syllable.start_cons + syllable.vowels[0] == 'sce'):
             # casus
             start_con_sound += 'k'
         else:
@@ -29,9 +29,9 @@ class StartPronunciations:
         return start_con_sound
 
     @staticmethod
-    def find_start_h_pronunciation(syllable, i):
+    def find_start_h_pronunciation(syllable: Syllable, i: int) -> str:
         start_con_sound = ''
-        if i > 0 and syllable.start_cons[i-1] == 'c':
+        if i > 0 and syllable.start_cons[i - 1] == 'c':
             # ch
             pass
         else:
@@ -39,12 +39,12 @@ class StartPronunciations:
         return start_con_sound
 
     @staticmethod
-    def find_start_j_pronunciation(syllable, i):
+    def find_start_j_pronunciation(syllable: Syllable, i: int) -> str:
         start_con_sound = ''
-        if syllable.prev_syl.end_cons[-1:] == 'n':
+        if syllable.prev_syl and syllable.prev_syl.end_cons[-1:] == 'n':
             # nj as in oranje, already handled with the n
             pass
-        elif i > 0 and syllable.start_cons[i-1] == 's':
+        elif i > 0 and syllable.start_cons[i - 1] == 's':
             # sjaal = ßaal
             pass
         else:
@@ -52,27 +52,26 @@ class StartPronunciations:
         return start_con_sound
 
     @staticmethod
-    def find_start_s_pronunciation(syllable, i):
+    def find_start_s_pronunciation(syllable: Syllable, i: int) -> str:
         start_con_sound = ''
-        if i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'c' \
-                and i < len(syllable.start_cons)-2 and syllable.start_cons[i+2] == 'h':
+        if i < len(syllable.start_cons) - 1 and syllable.start_cons[i + 1] == 'c' and i < len(syllable.start_cons) - 2 and syllable.start_cons[i + 2] == 'h':
             if syllable.vowels + syllable.end_cons == 'e' and syllable.next_syl is None:
                 # word ending on sche like logische
                 start_con_sound += 's'
             else:
                 # scheen
                 start_con_sound += 'sg'
-        elif i < len(syllable.start_cons)-1 and syllable.start_cons[i+1] == 'j':
+        elif i < len(syllable.start_cons) - 1 and syllable.start_cons[i + 1] == 'j':
             start_con_sound += 'ß'
         else:
             start_con_sound += 's'
         return start_con_sound
 
     @staticmethod
-    def find_start_t_pronunciation(syllable, i):
+    def find_start_t_pronunciation(syllable: Syllable, i: int) -> str:
         start_con_sound = ''
         if syllable.start_cons + syllable.vowels == 'tie' and syllable.next_syl is None:
-            if syllable.prev_syl.end_cons != '' and syllable.prev_syl.end_cons == 'c':
+            if syllable.prev_syl and syllable.prev_syl.end_cons != '' and syllable.prev_syl.end_cons == 'c':
                 # perfectie
                 start_con_sound += 's'
             else:
@@ -83,7 +82,7 @@ class StartPronunciations:
         return start_con_sound
 
     @staticmethod
-    def find_start_q_pronunciation(syllable, i):
+    def find_start_q_pronunciation(syllable: Syllable, i: int) -> str:
         start_con_sound = ''
         if syllable.vowels != '' and syllable.vowels[0] == 'u':
             # qua = kwa
