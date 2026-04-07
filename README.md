@@ -4,10 +4,15 @@
 
 ## Introductions
 
- The idea of this parser it to make use of rules as much as possible and to not use word lists. First the parser will be used to split up words in syllables. Then the correct sounds for every syllable should be linked
- After that add an artificial voice to pronounce the words.
+The Dutch language has quite a complicated spelling system (also called *orthography*), making it possible in a lot of cases to derive a words pronunciation from its spelling. However, there are also a plethora of exceptions, making it not always possible.
 
- Eventually there will be need for a word list of some sort, as there is no way to know if the syllable 'be' should be pronounced as 'bay' for 'bezem' or  'buh' for 'bezet.
+Loan words are probably the first obstacle to come to mind. The fact that *jam* is not pronounced like *yahm* but like *zhem* (like the *s* in *treasure*), is impossible to know, especially because *jam* being pronounced phonetically is also an existing word. You would need a deep learning model to be able to work around such challenges, and those exist. The challenge undertaken in this project, is to only use only deterministic spelling rules and hard-coded exception lists as little as possible.
+
+### Open and Closed Syllables
+
+Here is a simple example of a Dutch spelling rule, to illustrate how this project works. In Dutch there are 2 types of syllables: open and closed. Where an open syllable has no ending consonant and a closed syllable does. So in the word *bomen* there are 2 syllables: *bo* and *men*. The first is open, the second is closed. Vowels in Dutch differ in pronuncation depending on the syllable type. The o in *bo* is the same as the vowel in *boom*, but different from *bom*. To "close" an open syllable, you double the next consonant, so *bommen* has the same *o* as *bom*. This means that in Dutch *boomen* can never occur. This double consonant rule is one of many we can follow to get the correct syllables a word is made up of.
+
+Currently I have found only 1 general problem that seems to be unsolvable without a dictionary where we always split some words incorrectly. this has to do with the fact that there are loanwords from English that use the y as a vowel and then there are a couple of loanwords from other countries, 'yoghurt' and 'yoga', that use y as a consonant. There is simply no way of knowing, without a dictionary, whether babyoppas should be bab-yop-pas or ba-by-op-pas, or if besyoghurt should be-sy-og-hurt or bes-yog-hurt.
 
 ## Installation
 
