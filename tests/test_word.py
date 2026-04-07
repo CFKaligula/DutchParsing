@@ -6,30 +6,30 @@ from src.word import Word
 @pytest.mark.parametrize(
     'word,expected',
     [
-        ('dromen', 'dro-men'),
-        ('leerling', 'leer-ling'),
         ('ambtenaar', 'amb-te-naar'),
+        ('autootje', 'au-too-tje'),
+        ('beïnvloeden', 'be-in-vloe-den'),
+        ('blok-étagere', 'blok-e-ta-ge-re'),
+        ('blaséeend', 'bla-se-eend'),
+        ('babby', 'bab-by'),
+        ('baby', 'ba-by'),
+        ('blije', 'blij-e'),
+        ('chronische', 'chro-ni-sche'),
+        ('dromen', 'dro-men'),
+        ('hoofdstad', 'hoofd-stad'),
+        ('ijsyoghurt', 'ijs-yog-hurt'),
+        ('lachen', 'lach-en'),
+        ('leerling', 'leer-ling'),
+        ('lange', 'lang-e'),
         ('koeien', 'koei-en'),
         ('piano', 'pi-a-no'),
         ('niveau', 'ni-veau'),
         ('radio', 'ra-di-o'),
-        ('blije', 'blij-e'),
         ('taxi', 'tax-i'),
-        ('lachen', 'lach-en'),
-        ('autootje', 'au-too-tje'),
         ('herfstjuk', 'herfst-juk'),
-        ('beïnvloeden', 'be-in-vloe-den'),
-        ('blok-étagere', 'blok-e-ta-ge-re'),
-        ('blaséeend', 'bla-se-eend'),
-        ('baby', 'ba-by'),
-        ('ijsyoghurt', 'ijs-yog-hurt'),
         ('sexy', 'sex-y'),
-        ('babby', 'bab-by'),
-        ('yoghurt', 'yog-hurt'),
         ('quasi', 'qua-si'),
-        ('chronische', 'chro-ni-sche'),
-        ('lange', 'lang-e'),
-        ('hoofdstad', 'hoofd-stad'),
+        ('yoghurt', 'yog-hurt'),
     ],
 )
 def test_get_split_word(word, expected):
@@ -39,45 +39,71 @@ def test_get_split_word(word, expected):
 @pytest.mark.parametrize(
     'word,expected',
     [
-        ('pen', 'pen'),
+        # a
+        ('appel', 'apel'),
+        # b
+        ('baas', 'bás'),
+        ('bijl', 'beel'),
+        ('bezem', 'bézem'),
+        ('bezet', 'b0zet'),
+        ('blokken', 'blok0n'),
+        # c
+        ('citroen', 'sítrön'),
+        ('chronische', 'grónís0'),
+        ('chronisch', 'grónís'),
+        ('ceder', 'séd0r'),
+        ('casus', 'kásus'),
+        # d
+        ('denken', 'denk0n'),
+        # e
+        # f
+        # g
+        ('gaas', 'gás'),
         ('ga', 'gá'),
         ('gas', 'gas'),
         ('gade', 'gád0'),
-        ('sexy', 'seksí'),
-        ('gaas', 'gás'),
         ('gaal', 'gá0l'),
-        ('baas', 'bás'),
-        ('lijk', 'lïk'),
-        ('bijl', 'beel'),
-        ('lang', 'laµ'),
-        ('chronische', 'grónís0'),
-        ('chronisch', 'grónís'),
-        ('scepter', 'sept0r'),
-        ('ceder', 'séd0r'),
-        ('casus', 'kásus'),
-        ('herkennen', 'herken0n'),
-        ('denken', 'denk0n'),
-        ('bezem', 'bézem'),
-        ('bezet', 'b0zet'),
         ('gag', 'gaæ'),
-        ('taxi', 'taksí'),
-        ('yoga', 'jógá'),
-        ('schaar', 'sgá0r'),
-        ('scheren', 'sgiir0n'),
-        ('praatje', 'práð0'),
-        ('quinty', 'kwintí'),
-        ('quasi', 'kwásí'),
-        ('citroen', 'sítrön'),
-        ('appel', 'apel'),
-        ('blokken', 'blok0n'),
-        ('oranje', 'oorañ0'),
-        ('sjaal', 'ßá0l'),
+        # h
+        ('herkennen', 'herken0n'),
+        # i
+        # j
+        # k
+        # l
+        ('lijk', 'lïk'),
+        ('lang', 'laµ'),
+        # m
         ('motie', 'mótsí'),
         ('moties', 'mótsís'),
+        # n
+        # o
+        ('oranje', 'oorañ0'),
+        # p
+        ('pen', 'pen'),
         ('perfectie', 'perfeksí'),
+        ('praatje', 'práð0'),
+        # q
+        ('quincy', 'kwinsí'),
+        ('quasi', 'kwásí'),
+        # r
+        # s
+        ('sexy', 'seksí'),
+        ('scepter', 'sept0r'),
+        ('schaar', 'sgá0r'),
+        ('scheren', 'sgiir0n'),
+        ('sjaal', 'ßá0l'),
+        # t
+        ('taxi', 'taksí'),
         ('tieten', 'tít0n'),
+        # u
+        # v
+        # w
         ('wordt', 'wort'),
         ('wondtas', 'wontas'),
+        # x
+        # y
+        ('yoga', 'jógá'),
+        # z
     ],
 )
 def test_pronunciation(word, expected):
